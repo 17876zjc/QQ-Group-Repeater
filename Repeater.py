@@ -8,7 +8,7 @@ import six
 import os
 import re
 import math
-
+import majsoul
 
 async def aioGet(url):
     try:
@@ -147,6 +147,27 @@ def Repeater():
                 res += f"姓名：{item['name']}\n职称：{item['title']}\n办公室：{item['office']}\n电话：{item['tel']}\n邮箱：{item['email']}\n照片：[CQ:image,file={item['imageUrl']}]\n\n"
         return res.strip() if res else self.getReply("contacts_failed")
     """
+
+    @bot.onCommand('查雀魂')
+    async def searchQueHun(self):
+        name = (self.msg).strip('#查雀魂 ')
+        res = name + "\n"
+        id = majsoul.getid(name)
+        if(id == None):
+            return "没有查到呢~"
+        text = majsoul.getinfo(id)
+        for i in majsoul.l:
+            for j in i :
+                res += str(i) + majsoul.getdata(text, i) + "\n"
+            res += "\n"
+        res += "\n"
+        match = ["一位率","二位率","三位率","四位率"]
+        for i in range(1, 5):
+            res = res + math(i) + majsoul.getrk(text, i) + "\n"
+        return res
+
+
+
     @bot.onCommand('weapon')
     async def weapon(self):
         res = ""
