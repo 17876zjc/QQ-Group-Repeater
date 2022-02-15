@@ -14,6 +14,7 @@ class Bot:
     STUDIED_REPLY = load_json("data/study.json")
     COURSES = load_json("data/course.json")
     CONTACTS = load_json("data/contacts.json")
+    WEAPONS = load_json("data/weapons.json")
     FIXED_REPLY_DICT = REPLY['FIXED_REPLY_DICT']
     REG_REPLY_DICT = REPLY['REG_REPLY_DICT']
 

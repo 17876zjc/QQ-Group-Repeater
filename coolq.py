@@ -49,12 +49,13 @@ async def handle_private(context):
 @bot.on_message('group')
 async def handle_msg(context):
     groupId = context['group_id']
-    if groupId in SETTINGS['DANMU_GROUP']:
+    """if groupId in SETTINGS['DANMU_GROUP']:
+        print(123)
         msgQueue.put({
             'sender': context['user_id'],
             'msg': context['message']
             # 'msg': purgeMsg(context['message'])
-        })
+        })"""
     if groupId not in SETTINGS['ALLOW_GROUP']:
         return
     global GroupDict

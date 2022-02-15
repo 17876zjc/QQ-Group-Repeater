@@ -3,6 +3,246 @@
 		"name": "天空之脊",
 		"level": 5,
 		"description": "",
-		"pic": "https://i.loli.net/2021/11/14/2nwgX7NZL9kBcHa.png"
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/tiankong_zhiji.png"
+	},
+	{
+		"name": "阿莫斯之弓",
+		"level": 5,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/amosi_zhigong.png"
+	},
+	{
+		"name": "四风原典",
+		"level": 5,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/sifeng_yuandian.png"
+	},
+	{
+		"name": "和璞鸢",
+		"level": 5,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/hepu_yuan.png"
+	},
+	{
+		"name": "天空之卷",
+		"level": 5,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/tiankong_zhijuan.png"
+	},
+	{
+		"name": "天空之傲",
+		"level": 5,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/tiankong_zhiao.png"
+	},
+	{
+		"name": "风鹰剑",
+		"level": 5,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/fengyin_jian.png"
+	},
+	{
+		"name": "狼的末路",
+		"level": 5,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/langde_molu.png"
+	},
+	{
+		"name": "天空之刃",
+		"level": 5,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/tiankong_zhiren.png"
+	},
+	{
+		"name": "天空之翼",
+		"level": 5,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/tiankong_zhiyi.png"
+	},
+	{
+		"name": "西风长枪",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/xifeng_changqiang.png"
+	},
+	{
+		"name": "匣里灭辰",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/xiali_miechen.png"
+	},
+	{
+		"name": "流浪乐章",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/liulang_yuezhang.png"
+	},
+	{
+		"name": "祭礼残章",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/jili_canzhang.png"
+	},
+	{
+		"name": "昭心",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/zhaoxin.png"
+	},
+	{
+		"name": "西风秘典",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/xifeng_midian.png"
+	},
+	{
+		"name": "弓藏",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/gongcang.png"
+	},
+	{
+		"name": "西风猎弓",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/xifeng_liegong.png"
+	},
+	{
+		"name": "钟剑",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/zhongjian.png"
+	},
+	{
+		"name": "绝弦",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/juexian.png"
+	},
+	{
+		"name": "西风大剑",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/xifeng_dajian.png"
+	},
+	{
+		"name": "祭礼弓",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/jili_gong.png"
+	},
+	{
+		"name": "祭礼大剑",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/jili_dajian.png"
+	},
+	{
+		"name": "雨裁",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/yucai.png"
+	},
+	{
+		"name": "匣里龙吟",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/xiali_longyin.png"
+	},
+	{
+		"name": "西风剑",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/xifeng_jian.png"
+	},
+	{
+		"name": "笛剑",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/dijian.png"
+	},
+	{
+		"name": "祭礼剑",
+		"level": 4,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/jili_jian.png"
+	},
+	{
+		"name": "黑缨枪",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/heiyin_qiang.png"
+	},
+	{
+		"name": "讨龙英杰谭",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/taolong_yinjie.png"
+	},
+	{
+		"name": "鸦羽弓",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/yayu_gong.png"
+	},
+	{
+		"name": "魔导绪论",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/moxu_daolun.png"
+	},
+	{
+		"name": "神射手之誓",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/shensheshou_zhishi.png"
+	},
+	{
+		"name": "翡玉法球",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/feiyu_faqiu.png"
+	},
+	{
+		"name": "弹弓",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/tangong.png"
+	},
+	{
+		"name": "以理服人",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/yili_furen.png"
+	},
+	{
+		"name": "飞天御剑",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/feitian_yujian.png"
+	},
+	{
+		"name": "铁影阔剑",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/tieyin_kuojian.png"
+	},
+	{
+		"name": "冷刃",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/lenren.png"
+	},
+	{
+		"name": "沐浴龙血的剑",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/muyu_longxie.png"
+	},
+	{
+		"name": "黎明神剑",
+		"level": 3,
+		"description": "",
+		"pic": "https://cdn.jsdelivr.net/gh/17876zjc/QQ-Group-Repeater@latest/data/img/weapons/limin_shenjian.png"
 	}
 ]

@@ -7,6 +7,7 @@ import json
 import six
 import os
 import re
+import math
 
 
 async def aioGet(url):
@@ -61,13 +62,21 @@ def Repeater():
                                       num[max(i, j) + 1:len(num)] +
                                       [f'({num[i]} {k} {num[j]})'])
                         if tmp: return tmp
-
+    """
     @bot.onCommand(r'算\s*((\d{1,5}\s+){3}\d{1,5}\s*)$')
     async def reply24(self):
         tmp_reg = re.search(r'算\s*((\d{1,5}\s+){3}\d{1,5}\s*)$', self.msg)
         res = solve24(tmp_reg.group(1).split())
         return res if res else getReply("24_failed")
-
+    """
+    @bot.onCommand(r'help|Help')
+    async def dispHelp(self):
+        str = "Help message:\n\n"
+        str = str+"#Help||#help: 命令列表\n"
+        str = str+"#猫猫||#猫图: 来点猫片\n"
+        str = str+"\n还想要其它的？等DLC吧!\n"
+        return str
+    """
     @bot.onCommand(r'扔(.*)')
     async def replyThrow(self):
         tmp_reg = re.search(r'扔(.*)', self.msg)
@@ -97,7 +106,8 @@ def Repeater():
                 res = f'{res}{key}：{value}\n'
         res = res.strip('\n')
         return res if res else self.getReply('throw_failed')
-
+    """
+    """
     @bot.onCommand(r'(([A-Za-z]{2}|)\d{3})是什么')
     async def replyCourseInfo(self):
         tmp_reg = re.search(r'(([A-Za-z]{2}|)\d{3})是什么', self.msg)
@@ -121,7 +131,8 @@ def Repeater():
             res += f"教师:{', '.join(set(item['teams']))}\n\n"
         res = res.strip()
         return res if res else self.getReply("course_failed")
-
+    """
+    """"
     @bot.onCommand(r'查([\s\S]{2,})|([\s\S]{2,})是谁')
     async def replyContacts(self):
         tmp_reg = re.search(r'查([\s\S]{2,})|([\s\S]{2,})是谁', self.msg.lstrip('#'))
@@ -135,7 +146,16 @@ def Repeater():
                 [word[0] for word in item['name'].lower().split() if word]):
                 res += f"姓名：{item['name']}\n职称：{item['title']}\n办公室：{item['office']}\n电话：{item['tel']}\n邮箱：{item['email']}\n照片：[CQ:image,file={item['imageUrl']}]\n\n"
         return res.strip() if res else self.getReply("contacts_failed")
-
+    """
+    @bot.onCommand('weapon')
+    async def weapon(self):
+        res = ""
+        size = len(Bot.WEAPONS)
+        item = Bot.WEAPONS[random.randint(0,size-1)]
+        res += f"你抽到了{item['level']}星武器{item['name']}!\n[CQ:image,file={item['pic']},cache=0]\n"
+        #print(res)
+        return res.strip()
+    """
     @bot.onCommand(r'([\s\S]{2,})教什么')
     async def replyTeaching(self):
         tmp_reg = re.search(r'([\s\S]{2,})教什么', self.msg.lstrip('#'))
@@ -150,13 +170,14 @@ def Repeater():
         for key, value in reDict.items():
             res += f"{key} ({', '.join(value)})\n"
         return res.strip() if res else self.getReply("teaching_failed")
-
+    """
+    """
     @bot.onCommand(r'第几周')
     async def replyWeek(self):
         d1 = datetime.now()
         d2 = datetime(2020, 5, 11)
         return f"今天 {d1.strftime('%m / %d')} 第 {(d1 - d2).days // 7 + 1} 周"
-
+    """
     @bot.onCommand(r'猫图|猫猫')
     async def replyKitty(self):
         url = "https://api.thecatapi.com/v1/images/search"
@@ -178,17 +199,19 @@ def Repeater():
             "file://",
             six.moves.urllib.request.pathname2url(os.path.abspath(path)))
         return f"[CQ:image,file={imgPath}]"
-
+    """
     @bot.onCommand(r'深度抽象\s*(.+)')
     async def replyDeepAbstract(self):
         tmp_reg = re.search(r'深度抽象\s*(.+)', self.msg)
         return self.eh.transform(tmp_reg.group(1), isDeepMode=True)
-
+    """
+    """
     @bot.onCommand(r'抽象\s*(.+)')
     async def replyDeepAbstract(self):
         tmp_reg = re.search(r'抽象\s*(.+)', self.msg)
         return self.eh.transform(tmp_reg.group(1))
-
+    """
+    """ 
     @bot.on(r'^xm|^羡慕')
     async def checkXM(self):
         myrand = random.random()
@@ -201,7 +224,8 @@ def Repeater():
                 '呸，老子才不羡慕' + re.sub(r'^xm|^羡慕', '', self.msg) \
                 not in self.selfArr:
                 return '呸，老子才不羡慕' + re.sub(r'^xm|^羡慕', '', self.msg)
-
+    """
+    """
     @bot.on(r"问：([\s\S]+)\s+答：([\s\S]+)")
     async def study(self):
         reg = re.search("问：([\s\S]+)\s+答：([\s\S]+)", self.msg)
@@ -229,13 +253,72 @@ def Repeater():
         with open("data/study.json", 'w', encoding='UTF-8') as f:
             json.dump(Bot.STUDIED_REPLY, f, ensure_ascii=False, indent=4)
         return self.getReply("study_successful")
-
+    """
     # check keywords
     @bot.on(r'tql|nb|ydl|ddw')
     async def checkKeywords(self):
         if random.random() <= Bot.SETTINGS['KW_REPEAT_PR']:
             return self.msg
 
+    @bot.onCommand(r'draw ([1-9][0-9]{0,3})|draw')
+    async def drawCards(self):
+        totaldraw = 0
+        if(self.msg == '#draw'):
+            totaldraw = 10
+        else:
+            tempmsg = re.search(r"draw ([1-9][0-9]{0,3})",self.msg)
+            totaldraw = int(tempmsg.group(1))
+        if(totaldraw > 90):
+            return "你真当自己是亿万富翁啦？"
+        string = "原神抽卡"+str(totaldraw)+"连\n"
+        result = [] 
+        last4count = 0
+        last5count = 0
+        flag5 = 0
+        for count in range(1,totaldraw+1):
+            randnum = random.randint(1,1000)
+            if randnum <= 6 + 1/(1/994 + math.exp(-(last5count-72)/1.5)):
+                result.append(2)
+                if(last5count <= 20):
+                    flag5 = 1
+                elif(last5count > 70 and flag5==0):
+                    flag5 = 2
+                last5count = 0
+                last4count = 0
+            elif randnum <= 106 + 1/(1/994 + math.exp(-(last5count-72)/1.5)):
+                result.append(1)
+                last4count = 0
+                last5count += 1
+            else:
+                result.append(0)
+                last4count += 1
+                last5count += 1
+            if (last4count == 10):
+                if result[count-1] != 2:
+                    result[count-1] = 1
+                last4count = 0
+        count = 0
+        if(self.msg == '#draw'):
+            for item in result:
+                string += getWeapon(item+3)
+            return string
+
+        for item in result:
+            if item == 0:
+                string += "3 ★ "
+            elif item == 1:
+                string += "4 ★ "
+            else:
+                string += "5 ★!!! "
+            count += 1
+            if(count %10 == 0):
+                string += "\n"
+        if flag5 == 2:
+            string += "吃保底了，小伙子挺非嗷\n"
+        elif flag5 == 1:
+            string += "?有欧狗\n"
+        return string
+    
     @bot.onCommand(r'色图|涩图')
     async def getSetu(self):
         try:
@@ -272,28 +355,45 @@ def Repeater():
             return f"[CQ:image,file={res}]"
         except:
             return getReply("get_image_failed")
+    
 
     # reply call
     @bot.on()
     async def replyAT(self):
         if (re.search(r'\[CQ:at,qq={}\]'.format(self.context['self_id']),
                       self.msg)):
-            return random.choice(Bot.FIXED_REPLY_DICT['AT'])
+            if(not((re.search("帮助",self.msg))
+                 or(re.search("关注",self.msg))
+                 or(re.search("开启全体",self.msg))
+                 or(re.search("关闭全体",self.msg))
+                 or(re.search("开启动态",self.msg))
+                 or(re.search("关闭动态",self.msg))
+                 or(re.search("关闭直播",self.msg))
+                 or(re.search("开启直播",self.msg))
+                 or(re.search("关闭权限",self.msg))
+                 or(re.search("开启权限",self.msg))
+                 or(re.search("关注列表",self.msg))
+                 or(re.search("取关",self.msg))
+                 )):
+                return random.choice(Bot.FIXED_REPLY_DICT['AT'])
 
     # random repeat
     @bot.on()
     async def rndRepeat(self):
         if self.lastMsgInvl > Bot.SETTINGS['MIN_MSG_INVL'] and len(
                 self.msg) <= Bot.SETTINGS['MAX_RND_RE_LEN']:
-            myrand = random.random()
-            if (myrand <= Bot.SETTINGS['RND_REPEAT_PR']):
-                self.lastMsgInvl = 0
-                return self.msg
-
+            if not(re.search('[CQ:image]',self.msg) or re.search('[CQ:face]',self.msg)):
+                myrand = random.random()
+                if (myrand <= Bot.SETTINGS['RND_REPEAT_PR']):
+                    self.lastMsgInvl = 0
+                    return self.msg
+    """
     # random XM
     @bot.on()
     async def rndXM(self):
-        if len(self.msg) > 2 and not re.search(r'^xm|^羡慕|\?$|？$', self.msg):
+        if len(self.msg) > 2 and not re.search(r'^xm|^羡慕|\?$|？$', self.msg) and (
+            not re.search(r'\[CQ:image,file=.+\]',self.msg)) and(
+            not re.search(r'\[CQ:face,id=+\]',self.msg)):
             if (self.lastMsgInvl > Bot.SETTINGS['MIN_MSG_INVL']
                     and len(self.msg) <= Bot.SETTINGS['MAX_RND_XM_LEN']):
                 myrand = random.random()
@@ -301,13 +401,14 @@ def Repeater():
                     self.lastMsgInvl = 0
                     self.msg = re.sub(r'^我的|^我', '', self.msg)
                     return '羡慕' + self.msg
-
+    """
     # check meme & regex replys
     @bot.on()
     async def checkMeme(self):
         for regex, words in Bot.REG_REPLY_DICT.items():
             if re.search(regex, self.msg):
-                return random.choice(words)
+                if(random.random()>0.9):
+                    return random.choice(words)
 
     @bot.on()
     async def replyStudy(self):
@@ -327,7 +428,10 @@ def Repeater():
         tmpMsg = self.msg
         if '[CQ:image' in self.msg and 'url' in self.msg and 'file' in self.msg:
             tmpMsg = ','.join(self.msg.split(',')[:2]) + ']'
-        if self.mbrArr.count(tmpMsg) >= 2:
+        if self.mbrArr.count(tmpMsg) >= 3 and (
+        not re.search(r'\[CQ:image,file=.+\]',self.msg)) and(
+        random.random() >= 0.6
+        ):
             self.mbrArr = [''] * 10
             return self.msg
 
@@ -343,6 +447,19 @@ async def test():
         'group_id': 925787157
     })
     print(re)
+
+def getWeapon(a):
+    res = ""
+    if a == 5:
+        item = Bot.WEAPONS[random.randint(0,9)]
+    elif a == 4:
+        item = Bot.WEAPONS[random.randint(10,27)]
+    elif a == 3:
+        item = Bot.WEAPONS[random.randint(28,len(Bot.WEAPONS)-1)]
+    else:
+        return "No image!\n"
+    res += f"[CQ:image,file={item['pic']},cache=0]"
+    return res.strip()
 
 
 if __name__ == "__main__":
