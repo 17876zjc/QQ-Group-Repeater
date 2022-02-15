@@ -148,10 +148,19 @@ def Repeater():
         return res.strip() if res else self.getReply("contacts_failed")
     """
 
-    @bot.onCommand('查雀魂')
+    @bot.onCommand('查雀魂|查四麻')
     async def searchQueHun(self):
-        name = (self.msg).strip('#查雀魂 ')
-        res = majsoul.searchQueHun(name)
+        if self.msg.find('#查雀魂') >= 0:
+            name = (self.msg).strip('#查雀魂 ')
+        else:
+            name = (self.msg).strip('#查四麻 ')
+        res = majsoul.searchQueHun(name,4)
+        return res
+    
+    @bot.onCommand('查三麻')
+    async def searchQueHunThree(self):
+        name = (self.msg).strip('#查三麻 ')
+        res = majsoul.searchQueHun(name,3)
         return res
 
 
