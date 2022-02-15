@@ -293,7 +293,7 @@ def Repeater():
             totaldraw = int(tempmsg.group(1))
         if(totaldraw > 90):
             return "你真当自己是亿万富翁啦？"
-        string = "原神抽卡"+str(totaldraw)+"连 "+'[CQ:at,qq='+self.sender+']'+"\n"
+        string = "原神抽卡"+str(totaldraw)+"连 "+'[CQ:at,qq='+str(self.sender)+']'+"\n"
         result = [] 
         last4count = 0
         last5count = 0
