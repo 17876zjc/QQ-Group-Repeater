@@ -73,11 +73,12 @@ def Repeater():
     async def dispHelp(self):
         str = "Help message:\n\n"
         str = str+"#Help||#help: 命令列表\n"
+        str = str+"@bot 帮助: 获取直播姬命令列表\n"
         str = str+"#查雀魂 + 用户名||#查四麻 + 用户名: 雀魂四麻水表\n"
         str = str+"#查三麻 + 用户名: 雀魂三麻水表\n"
         str = str+"#猫猫||#猫图: 来点猫片\n"
         str = str+"#狗图||#狗狗: 来点汪汪\n"
-        str = str+"#draw||#draw + 正整数: OP来抽卡"
+        str = str+"#draw||#draw + 正整数: OP来抽卡\n"
         str = str+"\n还想要其它的？等DLC吧!\n"
         return str
     """
