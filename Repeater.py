@@ -151,19 +151,7 @@ def Repeater():
     @bot.onCommand('查雀魂')
     async def searchQueHun(self):
         name = (self.msg).strip('#查雀魂 ')
-        res = name + "\n"
-        id = majsoul.getid(name)
-        if(id == None):
-            return "没有查到呢~"
-        text = majsoul.getinfo(id)
-        for i in majsoul.l:
-            for j in i :
-                res += str(i) + majsoul.getdata(text, i) + "\n"
-            res += "\n"
-        res += "\n"
-        match = ["一位率","二位率","三位率","四位率"]
-        for i in range(1, 5):
-            res = res + math(i) + majsoul.getrk(text, i) + "\n"
+        res = majsoul.searchQueHun(name)
         return res
 
 
