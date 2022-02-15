@@ -398,7 +398,8 @@ def Repeater():
                  or(re.search("关注列表",self.msg))
                  or(re.search("取关",self.msg))
                  )):
-                return random.choice(Bot.FIXED_REPLY_DICT['AT'])
+                return '[CQ:at,qq={'+self.sender+'}]'
+                #return random.choice(Bot.FIXED_REPLY_DICT['AT'])
 
     # random repeat
     @bot.on()
