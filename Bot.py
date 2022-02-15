@@ -32,6 +32,7 @@ class Bot:
         self.fbkImgs = list(glob.glob("./data/fubuki/*"))
         self.res = ''
         self.msg = ''
+        self.sender = ''
         self.context = {}
         self.msgID = 0
         self.replyTasks = []
@@ -60,6 +61,7 @@ class Bot:
         self.fromGroup = context['group_id']
         # purge msg
         self.msg = context['message']
+        self.sender = (context['sender'])["user_id"]
         self.msg = self.msg.replace('\r', '')
         self.msg = self.msg.strip().strip('\n')
         if not self.msg:

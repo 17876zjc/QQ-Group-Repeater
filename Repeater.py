@@ -293,7 +293,7 @@ def Repeater():
             totaldraw = int(tempmsg.group(1))
         if(totaldraw > 90):
             return "你真当自己是亿万富翁啦？"
-        string = "原神抽卡"+str(totaldraw)+"连\n"
+        string = "原神抽卡"+str(totaldraw)+"连 "+'[CQ:at,qq='+self.sender+']'+"\n"
         result = [] 
         last4count = 0
         last5count = 0
@@ -398,8 +398,7 @@ def Repeater():
                  or(re.search("关注列表",self.msg))
                  or(re.search("取关",self.msg))
                  )):
-                return '[CQ:at,qq={'+self.sender+'}]'
-                #return random.choice(Bot.FIXED_REPLY_DICT['AT'])
+                return random.choice(Bot.FIXED_REPLY_DICT['AT'])
 
     # random repeat
     @bot.on()
