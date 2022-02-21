@@ -117,7 +117,6 @@ def getinfo(id,table = [],mode = 4):
 
 
 def getdata(text, ask="和牌率"):
-    print(ask)
     res = re.findall(ask+".*?p>", text)[0]
     res = res[30:]
     pos = res.find(">")+1
@@ -156,11 +155,11 @@ def searchQueHun(name,mode=4):
 
     res = name + "\n查询范围:"
     if (table  == []):
-        res += "全部对局\n"
+        res += " 全部对局\n\n"
     else:
         for i in table:
             res +=(" ["+i+"]")
-        res += "\n"
+        res += "\n\n"
     id = getid(name,mode)
     if(id == None):
         return "没有查到呢~"
