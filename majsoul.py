@@ -86,9 +86,9 @@ def getinfo(id,table = [],mode = 4):
                 error += ("["+i+"]的对战!\n试一试对这位玩家搜索")
                 for k in availabletable:
                     if mode == 4:
-                        error += (" [" + tablech[table4.index(k)] + "] ")
+                        error += (" [" + tablech[table4.index(k)] + "]")
                     else:
-                        error += (" [" + tablech[table3.index(k)] + "] ")
+                        error += (" [" + tablech[table3.index(k)] + "]")
                 break
             else:
                 if (searchtable == ""):
@@ -96,6 +96,7 @@ def getinfo(id,table = [],mode = 4):
                 else:
                     searchtable += ("."+j)
         if (error != ""):
+            driver.close()
             return ["",error]
         if(mode == 4):
             tar = url2.replace("00000000", str(id))
@@ -157,9 +158,6 @@ def searchQueHun(name,mode=4):
     id = getid(name,mode)
     if(id == None):
         return "没有查到呢~"
-    ###
-    print(table)
-    ###
     [text,error] = getinfo(id,table,mode)
     if (error != ""):
         error = name + " " + error
@@ -179,7 +177,6 @@ def searchQueHun(name,mode=4):
         res += "\n"
     match = ["一位率","二位率","三位率","四位率"]
     for i in range(1,mode+1):
-        print(i)
         res = res + str(match[i-1]) + " "  + getrk(text, i) + "\n"
     return res
 

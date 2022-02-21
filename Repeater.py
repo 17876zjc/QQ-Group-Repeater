@@ -170,8 +170,6 @@ def Repeater():
         if (name == ''):
             return "你叫什么名字?"
         res = majsoul.searchQueHun(name,3)
-        print("Returning")
-        print (res)
         return res
 
 
