@@ -154,7 +154,13 @@ def searchQueHun(name,mode=4):
                 else:
                     return ("输入的场次 "+test+" 找不到呢~")
 
-    res = name + "\n"
+    res = name + "\n查询范围:"
+    if (table  == []):
+        res += "全部对局\n"
+    else:
+        for i in table:
+            res +=(" ["+i+"]")
+        res += "\n"
     id = getid(name,mode)
     if(id == None):
         return "没有查到呢~"
