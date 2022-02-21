@@ -159,12 +159,16 @@ def Repeater():
             name = (self.msg).strip('#查雀魂 ')
         else:
             name = (self.msg).strip('#查四麻 ')
+        if (name == ''):
+            return "你叫什么名字?"
         res = majsoul.searchQueHun(name,4)
         return res
     
     @bot.onCommand('查三麻')
     async def searchQueHunThree(self):
         name = (self.msg).strip('#查三麻 ')
+        if (name == ''):
+            return "你叫什么名字?"
         res = majsoul.searchQueHun(name,3)
         return res
 
