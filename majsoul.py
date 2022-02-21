@@ -58,6 +58,7 @@ def getinfo(id,table = [],mode = 4):
 
  
     if(table != []):
+        error = ""
         availabletable = []
         searchtable = ""
         curr_url = driver.current_url
@@ -69,7 +70,7 @@ def getinfo(id,table = [],mode = 4):
                 curr_url = curr_url[curr_url.find(".")+1:]
                 availabletable.append(tt)
             else:
-                availabletable.append(tt)
+                availabletable.append(curr_url)
                 break
         for i in table:
             if (mode == 4):
@@ -157,6 +158,9 @@ def searchQueHun(name,mode=4):
     id = getid(name,mode)
     if(id == None):
         return "没有查到呢~"
+    ###
+    print(table)
+    ###
     [text,error] = getinfo(id,table,mode)
     if (error != ""):
         error = name + " " + error
