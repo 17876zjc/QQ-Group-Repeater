@@ -282,7 +282,8 @@ def Repeater():
     async def checkKeywords(self):
         if random.random() <= Bot.SETTINGS['KW_REPEAT_PR']:
             return self.msg
-
+    
+    """
     @bot.onCommand(r'draw ([1-9][0-9]{0,3})|draw')
     async def drawCards(self):
         totaldraw = 0
@@ -341,7 +342,7 @@ def Repeater():
         elif flag5 == 1:
             string += "?有欧狗\n"
         return string
-    
+    """
     @bot.onCommand(r'色图|涩图')
     async def getSetu(self):
         try:
@@ -378,8 +379,8 @@ def Repeater():
             return f"[CQ:image,file={res}]"
         except:
             return getReply("get_image_failed")
-    
 
+    
     # reply call
     @bot.on()
     async def replyAT(self):

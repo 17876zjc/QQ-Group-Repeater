@@ -19,10 +19,13 @@ url1 = "https://ak-data-1.sapk.ch/api/v2/pl4/search_player/name?limit=20"
 url2 = "https://amae-koromo.sapk.ch/player/00000000/16.15.12.11.9.8"
 url3 = "https://ikeda.sapk.ch/player/00000000/26.24.23.22.21"
 
-def getid(name):
+def getid(name,mode = 4):
     tar = url1.replace("name", name)
+    if (mode == 3):
+        tar = tar.replace("pl4","pl3")
     r = requests.get(tar)
     res = json.loads(r.text)
+
     if len(res) == 0:
         return None
     # 可能会有多个结果，这里就当只有一个了
@@ -75,7 +78,7 @@ rnkCh = ["雀士","雀杰","雀豪","雀圣","魂天"]
 
 def searchQueHun(name,mode=4):
     res = name + "\n"
-    id = getid(name)
+    id = getid(name,mode)
     if(id == None):
         return "没有查到呢~"
     text = getinfo(id,mode)
