@@ -130,7 +130,7 @@ def getrk(text, ask = 1):
 
 def searchQueHun(name,mode=4):
     table = []
-    if(name.find(" ")):
+    if(name.find(" ")>=0):
         listname = list(name)
         listname.reverse()
         reversename = ''.join(listname)
