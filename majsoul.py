@@ -137,22 +137,21 @@ def searchQueHun(name,mode=4):
         reversename = ''.join(listname)
         index = len(name) - reversename.find(" ")
         test = name[index:]
-        if (test.find("王座") or test.find("玉") or test.find("金")):
-            name = name[:(index-1)]
-            while(1):
-                if(test.find("+") >= 0):
-                    tt = test[:test.find("+")]
-                    test = test[test.find("+")+1:]
-                    if(tt in tablech):
-                        table.append(tt)
-                    else:
-                        return ("输入的场次 "+tt+" 找不到呢~")
+        name = name[:(index-1)]
+        while(1):
+            if(test.find("+") >= 0):
+                tt = test[:test.find("+")]
+                test = test[test.find("+")+1:]
+                if(tt in tablech):
+                    table.append(tt)
                 else:
-                    if(test in tablech):
-                        table.append(test)
-                        break
-                    else:
-                        return ("输入的场次 "+test+" 找不到呢~")
+                    return ("输入的场次 "+tt+" 找不到呢~")
+            else:
+                if(test in tablech):
+                    table.append(test)
+                    break
+                else:
+                    return ("输入的场次 "+test+" 找不到呢~")
 
     res = name + "\n"
     id = getid(name,mode)
