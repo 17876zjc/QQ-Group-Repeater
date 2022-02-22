@@ -347,6 +347,8 @@ def Repeater():
             string += "?有欧狗\n"
         return string
     """
+
+    """"
     @bot.onCommand(r'色图|涩图')
     async def getSetu(self):
         try:
@@ -383,7 +385,7 @@ def Repeater():
             return f"[CQ:image,file={res}]"
         except:
             return getReply("get_image_failed")
-
+    """
     
     # reply call
     @bot.on()
