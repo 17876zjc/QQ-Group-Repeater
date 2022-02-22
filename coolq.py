@@ -116,7 +116,7 @@ def sche():
     cron  = CronTab(user = True)
     cron.remove_all()
     job = cron.new(command = 'sudo python3.8 ~/qqbot/QQ-Group-Repeater/dailysche.py',comment = 'send test')
-    job.setall('19 14 * * *')
+    job.setall('0 20 * * *')
     cron.write()
     print("Starting schedule")
 
