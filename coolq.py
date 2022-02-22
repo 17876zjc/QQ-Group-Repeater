@@ -1,6 +1,7 @@
 from aiocqhttp import CQHttp, ApiError, jsonify, request
 import os
 import random
+from click import command
 
 from sympy import use
 from Repeater import Repeater
@@ -15,6 +16,8 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from queue import Queue
 from pytz import timezone
+from crontab import CronTab
+
 used_timezone=timezone('Asia/Shanghai')
 
 logging.basicConfig(
@@ -108,20 +111,13 @@ async def send_new_day_msg():
         re = random.choice(REPLY['on_new_day'])
         await bot.send({'group_id': group_id}, message=re)
 
-async def printHello():
-    await asyncio.sleep(1) 
-    print("Hello")
-
 def sche():
-    ###
     print("Runnig Sche")
-    scheduler = AsyncIOScheduler()
-    # TODO: fit for all environments with different timezone, this is for 0 timezone
-    #scheduler.add_job(send_early_msg, 'cron', hour='3', minute='0')
-    #scheduler.add_job(send_new_day_msg, 'cron', hour='0', minute='0')
-    scheduler.add_job(printHello, 'interval', seconds = 3,timezone = used_timezone)
-    scheduler.start()
-    scheduler.print_jobs()
+    cron.remove_all()
+    cron  = CronTab(user = True)
+    job = cron.new(command = 'python3.8 dailysche.py')
+    job.minute.every(1)
+    cron.write()
     print("Starting schedule")
 
 
