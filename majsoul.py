@@ -38,7 +38,7 @@ def getid(name,mode = 4):
     if len(res) == 0:
         return None
     # 可能会有多个结果，这里就当只有一个了
-    return res[0]['id']
+    return [res[0]['nickname'],res[0]['id']]
 
 def getinfo(id,table = [],mode = 4):
     if mode == 4:
@@ -153,6 +153,11 @@ def searchQueHun(name,mode=4):
                 else:
                     return ("输入的场次 "+test+" 找不到呢~")
 
+    
+    [name,id] = getid(name,mode)
+    if(id == None):
+        return "没有查到呢~"
+
     res = name + "\n查询范围:"
     if (table  == []):
         res += " 全部对局\n\n"
@@ -160,9 +165,7 @@ def searchQueHun(name,mode=4):
         for i in table:
             res +=(" ["+i+"]")
         res += "\n\n"
-    id = getid(name,mode)
-    if(id == None):
-        return "没有查到呢~"
+        
     [text,error] = getinfo(id,table,mode)
     if (error != ""):
         error = name + " " + error
