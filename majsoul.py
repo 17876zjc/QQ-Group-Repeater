@@ -36,7 +36,7 @@ def getid(name,mode = 4):
     res = json.loads(r.text)
 
     if len(res) == 0:
-        return None
+        return ["",None]
     # 可能会有多个结果，这里就当只有一个了
     return [res[0]['nickname'],res[0]['id']]
 

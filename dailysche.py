@@ -24,7 +24,7 @@ async def dailySetu():
     except:
         re = Bot.REPLY.get("get_image_failed")
         return random.choice(re) if re else ''
-
+    print("Here")
     localtime = time.localtime(time.time())
     msg = ""
     if(abs(localtime.tm_hour - 8) <= 1):
@@ -32,7 +32,11 @@ async def dailySetu():
     else:
         msg = "辛苦一天啦, 来看看涩图吧\n"
     for group_id in coolq.SETTINGS['MEMTION_GROUP']:
+        print(group_id)
         await coolq.bot.send({'group_id': group_id}, message=(msg+f"[CQ:image,file={res}]"))
+        print(group_id)
+        time.sleep(1)
+        print(group_id)
 
 loop = asyncio.get_event_loop()
 result = loop.run_until_complete(dailySetu())
