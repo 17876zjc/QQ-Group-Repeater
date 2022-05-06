@@ -9,6 +9,7 @@ import os
 import re
 import math
 import majsoul
+import tenhou
 
 async def aioGet(url):
     try:
@@ -170,6 +171,14 @@ def Repeater():
         if (name == ''):
             return "你叫什么名字?"
         res = majsoul.searchQueHun(name,3)
+        return res
+
+    @bot.onCommand('查天凤')
+    async def searchTenhou(self):
+        name = (self.msg).strip('#查天凤 ')
+        if (name == ''):
+            return "你叫什么名字?"
+        res = tenhou.getinfo(name)
         return res
 
 
