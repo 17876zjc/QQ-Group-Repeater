@@ -10,6 +10,7 @@ import re
 import math
 import majsoul
 import tenhou
+import spider
 
 async def aioGet(url):
     try:
@@ -180,6 +181,12 @@ def Repeater():
             return "你叫什么名字?"
         res = tenhou.getinfo(name)
         return res
+
+    @bot.onCommand('语录')
+    async def yulu(self):
+        res = spider.getapic()
+        return f"[CQ:image,file={str(res)}]"
+
 
 
 

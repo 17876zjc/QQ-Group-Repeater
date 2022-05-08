@@ -24,6 +24,7 @@ def getinfo(id):
     opt.add_argument('--no-sandbox')
     opt.add_argument('--disable-dev-shm-usage')
     opt.add_argument('--disable-gpu')
+    opt.add_argument('--lang=zh_cn')
     s = Service(r"../chromedriver")
     #s = Service(r"E:\DesktopFiles\chromedriver.exe")
     #driver = webdriver.Chrome(executable_path = "E:\DesktopFiles\chromedriver.exe",options=opt)  # 参数添加
@@ -33,6 +34,7 @@ def getinfo(id):
 
     text = driver.page_source
     driver.close()
+    #return text
     if(re.findall("找不到指定的对局",text) != []):
         return "没有查到呢~"
     else:
