@@ -50,11 +50,11 @@ def turnpages(num):
     
 pages = re.findall("(第\d*頁)", driver.page_source)  
 
-print("Pages:\n")
-print(pages)
+#print("Pages:\n")
+#print(pages)
 
 maxpages = int(pages[-1][1:4])
-print(maxpages)
+#print(maxpages)
 
 
 # In[56]:

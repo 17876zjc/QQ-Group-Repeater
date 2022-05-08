@@ -187,6 +187,14 @@ def Repeater():
         res = spider.getapic()
         return f"[CQ:image,file={str(res)}]"
 
+    @bot.on(r'呆呆|呆呆兽|呆哥')
+    async def daidai(self):
+        if random.random() <= 0.02:
+            res = spider.getapic()
+            return f"[CQ:image,file={str(res)}]"
+        else:
+            print("No daidai")
+
 
 
 
