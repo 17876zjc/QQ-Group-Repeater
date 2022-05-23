@@ -1,7 +1,7 @@
 from unittest import result
 from numpy import double
 
-from sympy import false
+from sympy import false, true
 from util import load_json
 import requests
 import json
@@ -84,10 +84,24 @@ def getinfo(name):
                 if double(i['player'+str(j)+'ptr']) > pt:
                     rank = rank+1
             ptDelta = 0
-            if rank == 4:
-                ptDelta = 0 - levelmap[currank]['losescore'][len-1]
-            else:
-                ptDelta = ptchange['4'][len-1][str(lv)][rank-1]
+            flag = true
+            if(lv == 0 and len == 1):
+                t = time.localtime(thistime)
+                if t.tm_year<=2017:
+                    if t.tm_mon<=10:
+                        if t.tm_mday <= 22 or (t.tm_mday == 23 and t.tm_hour <23):
+                            flag = false
+                            if rank == 1:
+                                ptDelta = 30
+                            elif rank == 2 or ptDelta == 3:
+                                ptDelta = 0
+                            else:
+                                ptDelta = 0 - levelmap[currank]['losescore'][len-1]
+            if flag == true:
+                if rank == 4:
+                    ptDelta = 0 - levelmap[currank]['losescore'][len-1]
+                else:
+                    ptDelta = ptchange['4'][len-1][str(lv)][rank-1]
             #print(ptDelta)
             currpt = currpt + ptDelta
             if(currpt >= levelmap[currank]['maxscore']):
