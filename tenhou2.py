@@ -55,14 +55,22 @@ ptchange = {
 }
 
 def getinfo(name):
-    currank = 0
-    currpt = levelmap[currank]['initscore']
+    maxrank = currank = 0
+    maxpt = currpt = levelmap[currank]['initscore']
     tar = url+urllib.parse.quote(str(name))
     r = requests.get(tar)
     res = json.loads(r.text)
     if(res == False):
         return "没有找到该玩家!"
+    lasttime = 0
     for i in res['list']:
+        if lasttime == 0:
+            lasttime = int(i['starttime'])
+        else:
+            thistime = int(i['starttime'])
+            if (thistime-lasttime) > 60*60*24*180 and currank < 16:
+                maxrank = maxpt = currank = currpt = 0
+            lasttime = thistime
         if((i['sctype'] == "b" or i['sctype'] == "c") and i['playernum'] == "4"):
             lv = int(i['playerlevel'])
             len = int(i['playlength'])
@@ -93,8 +101,13 @@ def getinfo(name):
                     #print("\t降段至 "+levelmap[currank]['name'])
                 else:
                     currpt = 0
+            if currank > maxrank or (currank == maxrank and currpt > maxpt):
+                maxrank = currank
+                maxpt = currpt 
     if currank==20:
-        currpt=2200
-    return (levelmap[currank]['name']+" "+str(currpt)+"pt")
+        maxpt = currpt = 2200
+        maxrank = 20
+    return ("当前段位: "+levelmap[currank]['name']+" "+str(currpt)+"pt\n"+
+            "历史最高: "+levelmap[maxrank]['name']+" "+str(maxpt)+"pt")
 
     
