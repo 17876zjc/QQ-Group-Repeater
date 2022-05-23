@@ -10,6 +10,7 @@ import re
 import math
 import majsoul
 import tenhou
+import tenhou2
 import spider
 
 async def aioGet(url):
@@ -179,7 +180,8 @@ def Repeater():
         name = (self.msg).strip('#查天凤 ')
         if (name == ''):
             return "你叫什么名字?"
-        res = tenhou.getinfo(name)
+        #res = tenhou.getinfo(name)
+        res = tenhou2.getinfo(name)
         return res
 
     @bot.onCommand('语录')

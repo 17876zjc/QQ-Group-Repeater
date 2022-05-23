@@ -25,6 +25,7 @@ def getinfo(id):
     opt.add_argument('--disable-dev-shm-usage')
     opt.add_argument('--disable-gpu')
     opt.add_argument('--lang=zh_cn')
+    #opt.add_argument('user-agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"')
     s = Service(r"../chromedriver")
     #s = Service(r"E:\DesktopFiles\chromedriver.exe")
     #driver = webdriver.Chrome(executable_path = "E:\DesktopFiles\chromedriver.exe",options=opt)  # 参数添加
