@@ -126,5 +126,5 @@ def sche():
 
 
 if __name__ == '__main__':
-    sche()
+    #sche()
     bot.run(host='0.0.0.0', port=8090)

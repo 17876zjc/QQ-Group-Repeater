@@ -158,10 +158,7 @@ def Repeater():
 
     @bot.onCommand('查雀魂|查四麻')
     async def searchQueHun(self):
-        if self.msg.find('#查雀魂') >= 0:
-            name = (self.msg).strip('#查雀魂 ')
-        else:
-            name = (self.msg).strip('#查四麻 ')
+        name = (self.msg)[5:]
         if (name == ''):
             return "你叫什么名字?"
         res = majsoul.searchQueHun(name,4)
@@ -169,7 +166,7 @@ def Repeater():
     
     @bot.onCommand('查三麻')
     async def searchQueHunThree(self):
-        name = (self.msg).strip('#查三麻 ')
+        name = (self.msg)[5:]
         if (name == ''):
             return "你叫什么名字?"
         res = majsoul.searchQueHun(name,3)
@@ -177,9 +174,10 @@ def Repeater():
 
     @bot.onCommand('查天凤')
     async def searchTenhou(self):
-        name = (self.msg).strip('#查天凤 ')
+        name = (self.msg)[5:]
         if (name == ''):
             return "你叫什么名字?"
+        #print(name)
         #res = tenhou.getinfo(name)
         res = tenhou2.getinfo(name)
         return res

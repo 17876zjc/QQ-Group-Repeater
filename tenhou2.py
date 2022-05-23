@@ -93,6 +93,8 @@ def getinfo(name):
                     #print("\t降段至 "+levelmap[currank]['name'])
                 else:
                     currpt = 0
+    if currank==20:
+        currpt=2200
     return (levelmap[currank]['name']+" "+str(currpt)+"pt")
 
     
