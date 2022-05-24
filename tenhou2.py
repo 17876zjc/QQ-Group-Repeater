@@ -146,7 +146,7 @@ def getinfo(name):
             ptDelta = 0
             flag = true
             if(lv == 0 and len == 1):
-                t = time.localtime(thistime)
+                t = time.localtime(int(i['starttime']))
                 if t.tm_year<=2017:
                     if t.tm_mon<=10:
                         if t.tm_mday <= 22 or (t.tm_mday == 23 and t.tm_hour <23):
