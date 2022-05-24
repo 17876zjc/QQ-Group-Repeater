@@ -1,5 +1,3 @@
-from turtle import pos
-from unittest import result
 from numpy import double
 
 from sympy import false, true
