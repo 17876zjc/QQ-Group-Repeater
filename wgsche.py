@@ -30,6 +30,7 @@ async def wgSche():
                 if (k['id'] not in checkedname) and (k['id'] == j['name']) and (i["info"]["id"] != k["currgame"]):
                     checkedname.append(k['id'])
                     k["currgame"] = i["info"]["id"]
+                    k["recentgame"] = "-1"
                     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                         json.dump(load_dict, f,ensure_ascii=False)
                     msg = k['id']+" 正在乱杀, 快来围观:\n"
@@ -67,7 +68,6 @@ async def wgSche():
                         msg = msg + " " + i["players"][3]["name"]
 
                     for group_id in k["groupid"]:
-                        print(group_id)
                         await coolq.bot.send({'group_id': group_id}, message=msg)
                         time.sleep(1)
 

@@ -23,7 +23,7 @@ def wgadd(id,group):
                     json.dump(load_dict, f,ensure_ascii=False)
                 return "新增关注["+id+"]"
     with open("wglist.json",'w',encoding='utf-8') as f:
-        newadd = {'id': id,'groupid':[group], 'currgame':''}
+        newadd = {'id': id,'groupid':[group], 'currgame':'', "recentgame": "0"}
         load_dict.append(newadd)
         json.dump(load_dict, f,ensure_ascii=False)
         return "新增关注["+id+"]"

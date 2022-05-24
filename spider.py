@@ -64,7 +64,7 @@ def getapic():
 
     page = random.randint(0, maxpages)
     
-    button = driver.find_elements_by_xpath("//*/input[@value='第%d頁']" % num)[0]
+    button = driver.find_elements_by_xpath("//*/input[@value='第%d頁']" % page)[0]
     button.click()
     time.sleep(1)
 

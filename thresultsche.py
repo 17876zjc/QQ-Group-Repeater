@@ -1,0 +1,137 @@
+import imp
+import coolq
+import asyncio
+
+import json
+from Repeater import aioGet
+from Bot import Bot
+import wg
+import time
+import requests
+import urllib.parse
+import random
+import tenhou2
+
+url = "https://nodocchi.moe/api/listuser.php?name="
+msgRank =( 
+        [[["轻松拿下一位, 真的太强了","轻松拿下一位, 全程乱杀"],
+        ["精通避三, 避免了重大损失","获得一个二位, 深藏功与名"],
+        ["被安排了一个三位, 一定是角田的阴谋","被安排了一个三位, 实在是太苦了"]],
+        [["轻松拿下一位, 真的太强了","轻松拿下一位, 全程乱杀"],
+        ["获得一个二位, 深藏功与名"],
+        ["精通避四, 避免了重大损失","精通避四, 不掉分就是胜利"],
+        ["被安排了一个四位, 一定是角田的阴谋","被安排了一个四位, 实在是太苦了"]]])
+
+async def thResSche():
+    print("In TH res fetching")
+
+    with open("/root/QQ/QQ-Group-Repeater/wglist.json",'r',encoding='utf-8') as load_f:
+        load_dict = json.load(load_f)
+
+
+    for i in load_dict:
+        name = i["id"]
+        if(i["recentgame"] == "0"):
+            r = requests.get(url+urllib.parse.quote(str(name)))
+            res = json.loads(r.text)
+            lastmatch = res["list"][-1]
+            i["recentgame"] = lastmatch["starttime"]
+            with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
+                json.dump(load_dict, f,ensure_ascii=False)
+            continue
+                
+        if(i["recentgame"] == "-1"):
+            r = requests.get(url+urllib.parse.quote(str(name)))
+            res = json.loads(r.text)
+            lastmatch = res["list"][-1]
+            i["recentgame"] = lastmatch["starttime"]
+            with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
+                json.dump(load_dict, f,ensure_ascii=False)
+            msg = ""
+            gamemode = int(lastmatch["playernum"])
+            rank = 0
+            for i in range(1,gamemode+1):
+                if(lastmatch["player"+str(i)] == name):
+                    rank = i
+            msglist = msgRank[gamemode-3][rank-1]
+            msg = msg+name+" "+msglist[random.randint(0,len(msglist)-1)]+"\n"
+
+            if (lastmatch["playernum"] == "3"):
+                msg = msg + "三"
+            else:
+                msg = msg + "四"
+            
+            if (lastmatch["playerlevel"] == "0"):
+                msg = msg + "般"
+            elif (lastmatch["playerlevel"] == "1"):
+                msg = msg + "上"
+            elif (lastmatch["playerlevel"] == "2"):
+                msg = msg + "特"
+            elif (lastmatch["playerlevel"] == "3"):
+                msg = msg + "鳳"
+
+            if (lastmatch["playlength"] == "1"):
+                msg = msg + "东"
+            elif (lastmatch["playlength"] == "2"):
+                msg = msg + "南"
+            
+            if (lastmatch["kuitanari"] == "1"):
+                msg = msg + "喰"
+            
+            if (lastmatch["akaari"] == "1"):
+                msg = msg + "赤"
+            
+            msg = msg + " "
+            timeT = int(lastmatch["starttime"])+int(lastmatch["during"])*60
+            timeT = time.localtime(timeT)
+            msg = msg + " " + str(timeT.tm_hour)+":" + str(timeT.tm_min)+"\n"
+
+            if "url" in lastmatch:
+                msg = msg + lastmatch["url"]+"\n"
+            
+            if(lastmatch["playernum"] == "4"):
+                ptadd = [35,5,-15,-25]
+                for i in range (1,5):
+                    msg = msg + lastmatch["player"+str(i)]+ " "
+                    pt = lastmatch["player"+str(i)+"ptr"]
+                    msg = msg + str(int((float(pt)-ptadd[i-1])*1000)+25000) + "("+str(pt)+")\n"
+            else:
+                ptadd = [30,-5,-25]
+                for i in range (1,4):
+                    msg = msg + lastmatch["player"+str(i)]+ " "
+                    pt = lastmatch["player"+str(i)+"ptr"]
+                    msg = msg + str(int((float(pt)-ptadd[i-1])*1000)+35000) + "("+str(pt)+")\n"
+            
+            if(lastmatch["playernum"] == "4"):
+                (lastrank,lastpt) = tenhou2.getRank(res["list"][0:-2],name)
+                msg = msg + tenhou2.levelmap[lastrank]['name']+ " " + str(lastpt) + " --> "
+                ptDelta = 0
+                length = int(res["list"][-1]["playlength"])
+                lv = res["list"][-1]["playerlevel"]
+                if rank == 4:
+                    ptDelta = 0 - tenhou2.levelmap[lastrank]['losescore'][length-1]
+                else:
+                    ptDelta = tenhou2.ptchange['4'][length-1][lv][rank-1]
+                currpt = lastpt
+                currank = lastrank
+                currpt = currpt + ptDelta
+                if(currpt >= tenhou2.levelmap[currank]['maxscore']):
+                    currank = currank + 1
+                    currpt = tenhou2.levelmap[currank]['initscore']
+                #print("\t升段至 "+levelmap[currank]['name'])
+                elif(currpt < 0 ):
+                    if(tenhou2.levelmap[currank]['haslower'] == True):
+                        currank = currank - 1
+                        currpt = tenhou2.levelmap[currank]['initscore']
+                    #print("\t降段至 "+levelmap[currank]['name'])
+                    else:
+                        currpt = 0
+                msg = msg + tenhou2.levelmap[currank]['name']+ " " + str(currpt)
+            
+            for group_id in i["groupid"]:
+                    await coolq.bot.send({'group_id': group_id}, message=msg)
+                    time.sleep(1)
+
+loop = asyncio.get_event_loop()
+result = loop.run_until_complete(thResSche())
+loop.close()
