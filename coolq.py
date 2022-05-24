@@ -122,7 +122,7 @@ def sche():
     job2.setall('0 8 * * *')
     
     job3 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/wgsche.py',comment = 'wg')
-    job3.setall('/5 * * * *')
+    job3.setall('*/5 * * * *')
 
     cron.write()
     print("Starting schedule")
