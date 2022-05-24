@@ -21,12 +21,14 @@ async def wgSche():
     r = requests.get(url)
     res = json.loads(r.text)
 
+    checkedname = []
     for i in res:
         count = -1
         for j in i["players"]:
             count = count+1
             for k in load_dict:
-                if k['id'] == j['name'] and (i["info"]["id"] != k["currgame"]):
+                if (k['id'] not in checkedname) and (k['id'] == j['name']) and (i["info"]["id"] != k["currgame"]):
+                    checkedname.append(k['id'])
                     k["currgame"] = i["info"]["id"]
                     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                         json.dump(load_dict, f,ensure_ascii=False)
