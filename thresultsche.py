@@ -104,7 +104,7 @@ async def thResSche():
             
             if(lastmatch["playernum"] == "4"):
                 (lastrank,lastpt) = tenhou2.getRank(res["list"][0:-2],name)
-                msg = msg + tenhou2.levelmap[lastrank]['name']+ " " + str(lastpt) + " --> "
+                msg = msg + tenhou2.levelmap[lastrank]['name']+ " " + str(lastpt) + "pt --> "
                 ptDelta = 0
                 length = int(res["list"][-1]["playlength"])
                 lv = res["list"][-1]["playerlevel"]
@@ -126,7 +126,7 @@ async def thResSche():
                     #print("\t降段至 "+levelmap[currank]['name'])
                     else:
                         currpt = 0
-                msg = msg + tenhou2.levelmap[currank]['name']+ " " + str(currpt)
+                msg = msg + tenhou2.levelmap[currank]['name']+ " " + str(currpt)+"pt"
             
             for group_id in i["groupid"]:
                     await coolq.bot.send({'group_id': group_id}, message=msg)
