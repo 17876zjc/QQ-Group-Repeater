@@ -188,19 +188,19 @@ def Repeater():
         res = spider.getapic()
         return f"[CQ:image,file={str(res)}]"
 
-    @bot.onCommand(r'围观&^列表')
+    @bot.onCommand(r'\b围观\b')
     async def wgadd(self):
         id = (self.msg)[4:]
         res = wg.wgadd(id,self.fromGroup)
         return res
     
-    @bot.onCommand('取关')
+    @bot.onCommand(r'\b取关\b')
     async def wgadd(self):
-        id = (self.msg)[5:]
+        id = (self.msg)[4:]
         res = wg.wgdel(id,self.fromGroup)
         return res
 
-    @bot.onCommand('围观列表')
+    @bot.onCommand(r'\b围观列表\b')
     async def wgadd(self):
         res = wg.wglist(self.fromGroup)
         return res
