@@ -65,10 +65,10 @@ def getinfo(name):
     res = json.loads(r.text)
     if(res == False):
         return "没有找到该玩家!"
-    lasttime = 0
+    lasttime = thistime =  0
     for i in res['list']:
         if lasttime == 0:
-            lasttime = int(i['starttime'])
+            lasttime = thistime = int(i['starttime'])
         else:
             thistime = int(i['starttime'])
             if (thistime-lasttime) > 60*60*24*180 and currank < 16:
@@ -136,15 +136,15 @@ def getinfo(name):
     r1 = requests.get(tarrank)
     res1 = json.loads(r1.text)
     if "4" in res1:
-        ans = ans+"\n段位排名: "+str(res1['4']['graderank']+" 名")
+        ans = ans+"\n段位排名: "+str(res1['4']['graderank'])+" 名"
 
     gamenum = position[0]+position[1]+position[2]+position[3]
     ans = ans+"\n\n总计对战: "+str(gamenum)+ " 场\n"
-    ans = ans+"一位: "+str(position[0])+ " 场\t"+ round(float(position[0]/gamenum)*100,2)+"%\n"
-    ans = ans+"二位: "+str(position[1])+ " 场\t"+ round(float(position[1]/gamenum)*100,2)+"%\n"
-    ans = ans+"三位: "+str(position[2])+ " 场\t"+ round(float(position[2]/gamenum)*100,2)+"%\n"
-    ans = ans+"四位: "+str(position[3])+ " 场\t"+ round(float(position[3]/gamenum)*100,2)+"%\n"
-    ans = ans+"平均顺位: "+str(round((position[0]*1+position[1]*2+position[2]*3+position[3]*4)/gamenum),3)
+    ans = ans+"一位: "+str(position[0])+ " 场\t"+ str(round(float(position[0]/gamenum)*100,2))+"%\n"
+    ans = ans+"二位: "+str(position[1])+ " 场\t"+ str(round(float(position[1]/gamenum)*100,2))+"%\n"
+    ans = ans+"三位: "+str(position[2])+ " 场\t"+ str(round(float(position[2]/gamenum)*100,2))+"%\n"
+    ans = ans+"四位: "+str(position[3])+ " 场\t"+ str(round(float(position[3]/gamenum)*100,2))+"%\n"
+    ans = ans+"平均顺位: "+str(round((position[0]*1+position[1]*2+position[2]*3+position[3]*4)/gamenum,3))
 
     return ans
 
