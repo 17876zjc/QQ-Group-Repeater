@@ -40,10 +40,12 @@ async def thResSche():
                 json.dump(load_dict, f,ensure_ascii=False)
             continue
                 
-        if(i["recentgame"] == "-1"):
+        if(int(i["recentgame"]) < 0):
             r = requests.get(url+urllib.parse.quote(str(name)))
             res = json.loads(r.text)
             lastmatch = res["list"][-1]
+            if(int(lastmatch["starttime"]) + int(i["recentgame"]) == 0):
+                continue
             i["recentgame"] = lastmatch["starttime"]
             with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                 json.dump(load_dict, f,ensure_ascii=False)
