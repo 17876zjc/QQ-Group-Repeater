@@ -115,16 +115,19 @@ def sche():
     print("Runnig Sche")
     cron  = CronTab(user = True)
     cron.remove_all()
-    job1 = cron.new(command = 'sudo python3.8 ~/qqbot/QQ-Group-Repeater/dailysche.py',comment = 'send test')
+    job1 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/dailysche.py',comment = 'send test')
     job1.setall('0 20 * * *')
 
-    job2 = cron.new(command = 'sudo python3.8 ~/qqbot/QQ-Group-Repeater/dailysche.py',comment = 'send test')
+    job2 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/dailysche.py',comment = 'send test')
     job2.setall('0 8 * * *')
     
+    job3 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/wgsche.py',comment = 'wg')
+    job3.setall('/5 * * * *')
+
     cron.write()
     print("Starting schedule")
 
 
 if __name__ == '__main__':
-    #sche()
+    sche()
     bot.run(host='0.0.0.0', port=8090)

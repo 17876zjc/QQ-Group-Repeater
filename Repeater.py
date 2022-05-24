@@ -12,6 +12,7 @@ import majsoul
 import tenhou
 import tenhou2
 import spider
+import wg
 
 async def aioGet(url):
     try:
@@ -186,6 +187,24 @@ def Repeater():
     async def yulu(self):
         res = spider.getapic()
         return f"[CQ:image,file={str(res)}]"
+
+    @bot.onCommand('围观')
+    async def wgadd(self):
+        id = (self.msg)[4:]
+        res = wg.wgadd(id,self.fromGroup)
+        return res
+    
+    @bot.onCommand('围观-')
+    async def wgadd(self):
+        id = (self.msg)[5:]
+        res = wg.wgdel(id,self.fromGroup)
+        return res
+
+    @bot.onCommand('围观列表')
+    async def wgadd(self):
+        id = (self.msg)[6:]
+        res = wg.wglist(self.fromGroup)
+        return res
 
     @bot.on(r'呆呆|呆呆兽|呆哥')
     async def daidai(self):
