@@ -34,7 +34,14 @@ async def thResSche():
         if(i["recentgame"] == "0"):
             r = requests.get(url+urllib.parse.quote(str(name)))
             res = json.loads(r.text)
-            lastmatch = res["list"][-1]
+            index = -1
+            lastmatch = 0
+            while True:
+                lastmatch = res["list"][index]
+                if (lastmatch["sctype"] == "a") or(lastmatch["playerlevel"] == "0")or(lastmatch["playerlevel"] == "1"):
+                    index = index - 1
+                else:
+                    break
             i["recentgame"] = lastmatch["starttime"]
             with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                 json.dump(load_dict, f,ensure_ascii=False)
@@ -43,7 +50,14 @@ async def thResSche():
         if(int(i["recentgame"]) < 0):
             r = requests.get(url+urllib.parse.quote(str(name)))
             res = json.loads(r.text)
-            lastmatch = res["list"][-1]
+            index = -1
+            lastmatch = 0
+            while True:
+                lastmatch = res["list"][index]
+                if (lastmatch["sctype"] == "a") or(lastmatch["playerlevel"] == "0")or(lastmatch["playerlevel"] == "1"):
+                    index = index - 1
+                else:
+                    break
             if(int(lastmatch["starttime"]) + int(i["recentgame"]) == 0):
                 continue
             i["recentgame"] = lastmatch["starttime"]
