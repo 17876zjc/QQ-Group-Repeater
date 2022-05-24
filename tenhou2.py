@@ -1,3 +1,4 @@
+from turtle import pos
 from unittest import result
 from numpy import double
 
@@ -9,6 +10,7 @@ import time
 import urllib.parse
 
 url = "https://nodocchi.moe/api/listuser.php?name="
+urlrank = "https://nodocchi.moe/s/ugr/***.js"
 
 levelmap = {
     0: {'name': '新人', 'initscore': 0, 'maxscore': 20, 'haslower': False, 'losescore': [0,0]},
@@ -57,6 +59,7 @@ ptchange = {
 def getinfo(name):
     maxrank = currank = 0
     maxpt = currpt = levelmap[currank]['initscore']
+    position = [0,0,0,0]
     tar = url+urllib.parse.quote(str(name))
     r = requests.get(tar)
     res = json.loads(r.text)
@@ -70,6 +73,7 @@ def getinfo(name):
             thistime = int(i['starttime'])
             if (thistime-lasttime) > 60*60*24*180 and currank < 16:
                 maxrank = maxpt = currank = currpt = 0
+                position = [0,0,0,0]
             lasttime = thistime
         if((i['sctype'] == "b" or i['sctype'] == "c") and i['playernum'] == "4"):
             lv = int(i['playerlevel'])
@@ -83,6 +87,7 @@ def getinfo(name):
             for j in range(1,5):
                 if double(i['player'+str(j)+'ptr']) > pt:
                     rank = rank+1
+            position[rank-1] = position[rank-1] + 1
             ptDelta = 0
             flag = true
             if(lv == 0 and len == 1):
@@ -121,7 +126,26 @@ def getinfo(name):
     if currank==20:
         maxpt = currpt = 2200
         maxrank = 20
-    return ("当前段位: "+levelmap[currank]['name']+" "+str(currpt)+"pt\n"+
-            "历史最高: "+levelmap[maxrank]['name']+" "+str(maxpt)+"pt")
+    
+    ans = (name+"\n当前段位: "+levelmap[currank]['name']+" "+str(currpt)+"pt")
+    if (currank == maxrank and currpt == maxpt):
+        ans = ans + "★"
+    ans = ans + ("\n历史最高: "+levelmap[maxrank]['name']+" "+str(maxpt)+"pt")
+
+    tarrank = str(urlrank).replace("***",name)
+    r1 = requests.get(tarrank)
+    res1 = json.loads(r1.text)
+    if "4" in res1:
+        ans = ans+"\n段位排名: "+str(res1['4']['graderank']+" 名")
+
+    gamenum = position[0]+position[1]+position[2]+position[3]
+    ans = ans+"\n\n总计对战: "+str(gamenum)+ " 场\n"
+    ans = ans+"一位: "+str(position[0])+ " 场\t"+ round(float(position[0]/gamenum)*100,2)+"%\n"
+    ans = ans+"二位: "+str(position[1])+ " 场\t"+ round(float(position[1]/gamenum)*100,2)+"%\n"
+    ans = ans+"三位: "+str(position[2])+ " 场\t"+ round(float(position[2]/gamenum)*100,2)+"%\n"
+    ans = ans+"四位: "+str(position[3])+ " 场\t"+ round(float(position[3]/gamenum)*100,2)+"%\n"
+    ans = ans+"平均顺位: "+str(round((position[0]*1+position[1]*2+position[2]*3+position[3]*4)/gamenum),3)
+
+    return ans
 
     
