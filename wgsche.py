@@ -62,7 +62,9 @@ async def wgSche():
 
                     msg = msg + wgurl + i["info"]["id"]+"&tw="+str(count)+"\n"
                     msg = msg + (i["players"][0]["name"]+ " " + i["players"][1]["name"]+" " 
-                              + i["players"][2]["name"]+ " " + i["players"][3]["name"])
+                              + i["players"][2]["name"])
+                    if (i["info"]["playernum"] == 4):
+                        msg = msg + " " + i["players"][3]["name"]
 
                     for group_id in k["groupid"]:
                         print(group_id)

@@ -121,7 +121,7 @@ def sche():
     #job2 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/dailysche.py',comment = 'send test')
     #job2.setall('0 8 * * *')
     
-    job3 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/wgsche.py',comment = 'wg')
+    job3 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/wgsche.py >> out.txt  2>&1',comment = 'wg')
     job3.setall('*/5 * * * *')
 
     cron.write()
