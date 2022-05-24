@@ -21,17 +21,6 @@ import random
 # In[32]:
 
 
-tar = 'https://s.mahjong.pub/#/quotation/'
-opt = Options()
-opt.add_argument('--headless')
-opt.add_argument('--no-sandbox')
-opt.add_argument('--disable-dev-shm-usage')
-opt.add_argument('--disable-gpu')
-driver = webdriver.Chrome(executable_path = r"/root/QQ/chromedriver",options=opt)  # 参数添加
-driver.get('https://s.mahjong.pub/#/quotation/')
-driver.current_url
-time.sleep(2)
-
 
 # In[53]:
 
@@ -42,18 +31,14 @@ def getallpic(text):
         l[i] = l[i][13:-1]
     return l
 
-def turnpages(num):
-    global driver
-    button = driver.find_elements_by_xpath("//*/input[@value='第%d頁']" % num)[0]
-    button.click()
-    time.sleep(1)
     
-pages = re.findall("(第\d*頁)", driver.page_source)  
+    
+
 
 #print("Pages:\n")
 #print(pages)
 
-maxpages = int(pages[-1][1:4])
+
 #print(maxpages)
 
 
@@ -61,11 +46,31 @@ maxpages = int(pages[-1][1:4])
 
 
 def getapic():
-    global maxpages
-    global driver
+
+    tar = 'https://s.mahjong.pub/#/quotation/'
+    opt = Options()
+    opt.add_argument('--headless')
+    opt.add_argument('--no-sandbox')
+    opt.add_argument('--disable-dev-shm-usage')
+    opt.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(executable_path = r"/root/QQ/chromedriver",options=opt)  # 参数添加
+    driver.get('https://s.mahjong.pub/#/quotation/')
+    #driver.current_url
+    time.sleep(2)
+
+    pages = re.findall("(第\d*頁)", driver.page_source)  
+
+    maxpages = int(pages[-1][1:4])
+
     page = random.randint(0, maxpages)
-    turnpages(page)
+    
+    button = driver.find_elements_by_xpath("//*/input[@value='第%d頁']" % num)[0]
+    button.click()
+    time.sleep(1)
+
     pic = random.choice(getallpic(driver.page_source))
+
+    driver.quit()
     return pic
 
 
