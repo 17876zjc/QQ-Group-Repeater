@@ -50,9 +50,9 @@ async def thResSche():
             msg = ""
             gamemode = int(lastmatch["playernum"])
             rank = 0
-            for i in range(1,gamemode+1):
-                if(lastmatch["player"+str(i)] == name):
-                    rank = i
+            for j in range(1,gamemode+1):
+                if(lastmatch["player"+str(j)] == name):
+                    rank = j
             msglist = msgRank[gamemode-3][rank-1]
             msg = msg+name+" "+msglist[random.randint(0,len(msglist)-1)]+"\n"
 
@@ -91,16 +91,16 @@ async def thResSche():
             
             if(lastmatch["playernum"] == "4"):
                 ptadd = [35,5,-15,-25]
-                for i in range (1,5):
-                    msg = msg + lastmatch["player"+str(i)]+ " "
-                    pt = lastmatch["player"+str(i)+"ptr"]
-                    msg = msg + str(int((float(pt)-ptadd[i-1])*1000)+25000) + "("+str(pt)+")\n"
+                for j in range (1,5):
+                    msg = msg + lastmatch["player"+str(j)]+ " "
+                    pt = lastmatch["player"+str(j)+"ptr"]
+                    msg = msg + str(int((float(pt)-ptadd[j-1])*1000)+25000) + "("+str(pt)+")\n"
             else:
                 ptadd = [30,-5,-25]
-                for i in range (1,4):
-                    msg = msg + lastmatch["player"+str(i)]+ " "
-                    pt = lastmatch["player"+str(i)+"ptr"]
-                    msg = msg + str(int((float(pt)-ptadd[i-1])*1000)+35000) + "("+str(pt)+")\n"
+                for j in range (1,4):
+                    msg = msg + lastmatch["player"+str(j)]+ " "
+                    pt = lastmatch["player"+str(j)+"ptr"]
+                    msg = msg + str(int((float(pt)-ptadd[j-1])*1000)+35000) + "("+str(pt)+")\n"
             
             if(lastmatch["playernum"] == "4"):
                 (lastrank,lastpt) = tenhou2.getRank(res["list"][0:-2],name)
