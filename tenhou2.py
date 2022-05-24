@@ -189,7 +189,7 @@ def getinfo(name):
     ans = ans + ("\n历史最高: "+levelmap[maxrank]['name']+" "+str(maxpt)+"pt")
 
     if ("4" in res["rate"]):
-        ans = ans+("\n推定R值: R"+res["rate"]["4"])
+        ans = ans+("\n推定R值: R"+str(res["rate"]["4"]))
 
     tarrank = str(urlrank).replace("***",name)
     r1 = requests.get(tarrank)
