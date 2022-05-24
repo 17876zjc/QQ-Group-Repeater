@@ -34,7 +34,7 @@ def getinfo(id):
     time.sleep(1)
 
     text = driver.page_source
-    driver.close()
+    driver.quit()
     #return text
     if(re.findall("找不到指定的对局",text) != []):
         return "没有查到呢~"

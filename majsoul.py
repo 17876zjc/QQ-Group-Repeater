@@ -96,7 +96,7 @@ def getinfo(id,table = [],mode = 4):
                 else:
                     searchtable += ("."+j)
         if (error != ""):
-            driver.close()
+            driver.quit()
             return ["",error]
         if(mode == 4):
             tar = url2.replace("00000000", str(id))
@@ -109,7 +109,7 @@ def getinfo(id,table = [],mode = 4):
 
     text = driver.page_source
     #print(driver.page_source)
-    driver.close()
+    driver.quit()
     #soup = BeautifulSoup(text, 'lxml')
     return [text,""]
 
