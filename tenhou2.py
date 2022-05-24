@@ -64,7 +64,6 @@ def getRank(list,name):
             thistime = int(i['starttime'])
             if (thistime-lasttime) > 60*60*24*180 and currank < 16:
                 currank = currpt = 0
-                position = [0,0,0,0]
             lasttime = thistime
         if((i['sctype'] == "b" or i['sctype'] == "c") and i['playernum'] == "4"):
             lv = int(i['playerlevel'])
@@ -78,7 +77,6 @@ def getRank(list,name):
             for j in range(1,5):
                 if double(i['player'+str(j)+'ptr']) > pt:
                     rank = rank+1
-            position[rank-1] = position[rank-1] + 1
             ptDelta = 0
             flag = true
             if(lv == 0 and len == 1):
