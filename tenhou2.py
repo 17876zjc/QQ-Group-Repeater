@@ -121,15 +121,17 @@ def getinfo(name):
     res = json.loads(r.text)
     if(res == False):
         return "没有找到该玩家!"
-    #lasttime = thistime =  0
-    firstmatch = res['rseq'][0][0]
-    fl = true
+    lasttime = thistime =  0
+
     for i in res['list']:
-        if fl:
-            if firstmatch == int(i['starttime']):
-                fl = false
-            else:
-                continue
+        if lasttime == 0:
+            lasttime = thistime = int(i['starttime'])
+        else:
+            thistime = int(i['starttime'])
+            if (thistime-lasttime) > 60*60*24*180 and currank < 16:
+                maxrank = maxpt = currank = currpt = 0
+                position = [0,0,0,0]
+            lasttime = thistime
         if((i['sctype'] == "b" or i['sctype'] == "c") and i['playernum'] == "4"):
             lv = int(i['playerlevel'])
             len = int(i['playlength'])
@@ -146,7 +148,7 @@ def getinfo(name):
             ptDelta = 0
             flag = true
             if(lv == 0 and len == 1):
-                t = time.localtime(int(i['starttime']))
+                t = time.localtime(thistime)
                 if t.tm_year<=2017:
                     if t.tm_mon<=10:
                         if t.tm_mday <= 22 or (t.tm_mday == 23 and t.tm_hour <23):
