@@ -103,7 +103,7 @@ async def thResSche():
                     msg = msg + str(int((float(pt)-ptadd[j-1])*1000)+35000) + "("+str(pt)+")\n"
             
             if(lastmatch["playernum"] == "4"):
-                (lastrank,lastpt) = tenhou2.getRank(res["list"][0:-2],name)
+                (lastrank,lastpt) = tenhou2.getRank(res["list"][0:-1],name)
                 msg = msg + tenhou2.levelmap[lastrank]['name']+ " " + str(lastpt) + "pt --> "
                 ptDelta = 0
                 length = int(res["list"][-1]["playlength"])
