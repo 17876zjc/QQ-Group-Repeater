@@ -15,7 +15,7 @@ wgurl = "http://tenhou.net/0/?wg="
 async def wgSche():
     print("In wg checking")
 
-    with open("wglist.json",'r',encoding='utf-8') as load_f:
+    with open("/root/QQ/QQ-Group-Repeater/wglist.json",'r',encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
 
     r = requests.get(url)
@@ -28,7 +28,7 @@ async def wgSche():
             for k in load_dict:
                 if k['id'] == j['name'] and (i["info"]["id"] != k["currgame"]):
                     k["currgame"] = i["info"]["id"]
-                    with open("wglist.json",'w',encoding='utf-8') as f:
+                    with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                         json.dump(load_dict, f,ensure_ascii=False)
                     msg = k['id']+" 正在乱杀, 快来围观:\n"
                     if (i["info"]["playernum"] == 4):
@@ -56,7 +56,7 @@ async def wgSche():
                         msg = msg + "速"
 
                     t = time.localtime(i["info"]["starttime"])
-                    msg = msg + " " + str(t.tm_hour)+":" + str(t.tm_min)
+                    msg = msg + " " + str(t.tm_hour)+":" + str(t.tm_min)+"\n"
 
                     msg = msg + wgurl + i["info"]["id"]+"&tw="+str(count)+"\n"
                     msg = msg + (i["players"][0]["name"]+ " " + i["players"][1]["name"]+" " 

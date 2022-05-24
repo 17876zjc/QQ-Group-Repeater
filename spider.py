@@ -27,7 +27,7 @@ opt.add_argument('--headless')
 opt.add_argument('--no-sandbox')
 opt.add_argument('--disable-dev-shm-usage')
 opt.add_argument('--disable-gpu')
-driver = webdriver.Chrome(executable_path = r"../chromedriver",options=opt)  # 参数添加
+driver = webdriver.Chrome(executable_path = r"/root/QQ/chromedriver",options=opt)  # 参数添加
 driver.get('https://s.mahjong.pub/#/quotation/')
 driver.current_url
 time.sleep(2)

@@ -50,7 +50,7 @@ def getinfo(id,table = [],mode = 4):
     opt.add_argument('--no-sandbox')
     opt.add_argument('--disable-dev-shm-usage')
     opt.add_argument('--disable-gpu')
-    s = Service(r"../chromedriver")
+    s = Service(r"/root/QQ/chromedriver")
     #driver = webdriver.Chrome(executable_path = "E:\DesktopFiles\chromedriver.exe",options=opt)  # 参数添加
     driver = webdriver.Chrome(service = s,options = opt)
     driver.get(tar)
