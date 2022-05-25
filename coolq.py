@@ -17,6 +17,7 @@ from apscheduler.triggers.cron import CronTrigger
 from queue import Queue
 from pytz import timezone
 from crontab import CronTab
+import wg
 
 used_timezone=timezone('Asia/Shanghai')
 
@@ -132,5 +133,6 @@ def sche():
 
 
 if __name__ == '__main__':
+    wg.wgsync()
     sche()
     bot.run(host='0.0.0.0', port=8090)

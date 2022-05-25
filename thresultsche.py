@@ -46,7 +46,7 @@ async def thResSche():
                 json.dump(load_dict, f,ensure_ascii=False)
             continue
                 
-        if(int(i["recentgame"]) < 0):
+        if(i["recentgame"] != "N/A" and int(i["recentgame"]) < 0):
             r = requests.get(url+urllib.parse.quote(str(name)))
             res = json.loads(r.text)
             index = -1
@@ -107,15 +107,15 @@ async def thResSche():
             if(lastmatch["playernum"] == "4"):
                 ptadd = [35,5,-15,-25]
                 for j in range (1,5):
-                    msg = msg + lastmatch["player"+str(j)]+ " "
+                    msg = msg + lastmatch["player"+str(j)]+ "\n"
                     pt = lastmatch["player"+str(j)+"ptr"]
-                    msg = msg + str(int((float(pt)-ptadd[j-1])*1000)+25000) + "("+str(pt)+")\n"
+                    msg = msg + str(int(round((float(pt)-ptadd[j-1]),1)*1000)+25000) + "("+str(pt)+")\n"
             else:
                 ptadd = [30,-5,-25]
                 for j in range (1,4):
-                    msg = msg + lastmatch["player"+str(j)]+ " "
+                    msg = msg + lastmatch["player"+str(j)]+ "\n"
                     pt = lastmatch["player"+str(j)+"ptr"]
-                    msg = msg + str(int((float(pt)-ptadd[j-1])*1000)+35000) + "("+str(pt)+")\n"
+                    msg = msg + str(int(round((float(pt)-ptadd[j-1]),1)*1000)+35000) + "("+str(pt)+")\n"
             
             if(lastmatch["playernum"] == "4"):
                 (lastrank,lastpt) = tenhou2.getRank(res["list"][0:-1],name)
