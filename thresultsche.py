@@ -107,13 +107,13 @@ async def thResSche():
             if(lastmatch["playernum"] == "4"):
                 ptadd = [35,5,-15,-25]
                 for j in range (1,5):
-                    msg = msg + lastmatch["player"+str(j)]+ "\n"
+                    msg = msg + lastmatch["player"+str(j)]+ "\t"
                     pt = lastmatch["player"+str(j)+"ptr"]
                     msg = msg + str(int(round((float(pt)-ptadd[j-1]),1)*1000)+25000) + "("+str(pt)+")\n"
             else:
                 ptadd = [30,-5,-25]
                 for j in range (1,4):
-                    msg = msg + lastmatch["player"+str(j)]+ "\n"
+                    msg = msg + lastmatch["player"+str(j)]+ "\t"
                     pt = lastmatch["player"+str(j)+"ptr"]
                     msg = msg + str(int(round((float(pt)-ptadd[j-1]),1)*1000)+35000) + "("+str(pt)+")\n"
             
@@ -144,8 +144,10 @@ async def thResSche():
                 msg = msg + tenhou2.levelmap[currank]['name']+ " " + str(currpt)+"pt"
             
             for group_id in i["groupid"]:
+                    print("before" + str(group_id))
                     await coolq.bot.send({'group_id': group_id}, message=msg)
-                    time.sleep(1)
+                    print("after" +str(group_id))
+                    #time.sleep(1)
 
 loop = asyncio.get_event_loop()
 result = loop.run_until_complete(thResSche())
