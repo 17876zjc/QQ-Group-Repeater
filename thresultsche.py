@@ -99,7 +99,17 @@ async def thResSche():
             msg = msg + " "
             timeT = int(lastmatch["starttime"])+int(lastmatch["during"])*60
             timeT = time.localtime(timeT)
-            msg = msg + " " + str(timeT.tm_hour)+":" + str(timeT.tm_min)+"\n"
+            th = timeT.tm_hour
+            tm = timeT.tm_min
+            if th < 10:
+                th = "0" + str(th)
+            else:
+                th = str(th)
+            if tm < 10:
+                tm = "0" + str(th)
+            else:
+                tm = str(tm)
+            msg = msg + " " + str(th)+":" + str(tm)+"\n"
 
             if "url" in lastmatch:
                 msg = msg + lastmatch["url"]+"\n"

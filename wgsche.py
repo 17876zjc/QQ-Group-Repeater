@@ -60,7 +60,17 @@ async def wgSche():
                         msg = msg + "速"
 
                     t = time.localtime(i["info"]["starttime"])
-                    msg = msg + " " + str(t.tm_hour)+":" + str(t.tm_min)+"\n"
+                    th = t.tm_hour
+                    tm = t.tm_min
+                    if th < 10:
+                        th = "0" + str(th)
+                    else:
+                        th = str(th)
+                    if tm < 10:
+                        tm = "0" + str(th)
+                    else:
+                        tm = str(tm)
+                    msg = msg + " " + str(th)+":" + str(tm)+"\n"
 
                     msg = msg + wgurl + i["info"]["id"]+"&tw="+str(count)+"\n"
                     msg = msg + (i["players"][0]["name"]+ " " + i["players"][1]["name"]+" " 
