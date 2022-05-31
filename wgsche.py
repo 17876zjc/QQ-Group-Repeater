@@ -67,7 +67,7 @@ async def wgSche():
                     else:
                         th = str(th)
                     if tm < 10:
-                        tm = "0" + str(th)
+                        tm = "0" + str(tm)
                     else:
                         tm = str(tm)
                     msg = msg + " " + str(th)+":" + str(tm)+"\n"
