@@ -30,8 +30,9 @@ async def wgSche():
                 if (k['id'] not in checkedname) and (k['id'] == j['name']) and (i["info"]["id"] != k["currgame"]):
                     checkedname.append(k['id'])
                     k["currgame"] = i["info"]["id"]
-                    if (int(k["recentgame"])>0):
-                        k["recentgame"] = str(0-int(k["recentgame"]))
+
+                    if (i["info"]["starttime"] not in k["recentgame"]):
+                        k["recentgame"].append(i["info"]["starttime"])
                     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                         json.dump(load_dict, f,ensure_ascii=False)
                     msg = k['id']+" 正在乱杀, 快来围观:\n"

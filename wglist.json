@@ -1,1 +1,8 @@
-[{"id": "ZJChe", "groupid": [751288164, 683279211], "currgame": "", "recentgame": "1652969160"}, {"id": "天才麻将杏杏", "groupid": [148129523, 751288164], "currgame": "33F96E2D", "recentgame": "1653927240"}, {"id": "terryaz", "groupid": [148129523], "currgame": "74397D66", "recentgame": "1653551220"}, {"id": "srymaker", "groupid": [751288164], "currgame": "91687C31", "recentgame": "1653559560"}, {"id": "sharpro", "groupid": [751288164], "currgame": "10EDAA7E", "recentgame": "1653550740"}, {"id": "FlageQAQ", "groupid": [751288164], "currgame": "4FED4BB2", "recentgame": "1653931320"}]
+[
+    {"id": "ZJChe", "groupid": [751288164, 683279211], "currgame": "", "recentgame": []},
+    {"id": "天才麻将杏杏", "groupid": [148129523, 751288164], "currgame": "33F96E2D", "recentgame": []}, 
+    {"id": "terryaz", "groupid": [148129523], "currgame": "74397D66", "recentgame": []}, 
+    {"id": "srymaker", "groupid": [751288164], "currgame": "91687C31", "recentgame": []}, 
+    {"id": "sharpro", "groupid": [751288164], "currgame": "10EDAA7E", "recentgame": []}, 
+    {"id": "FlageQAQ", "groupid": [751288164], "currgame": "4FED4BB2", "recentgame": []}
+]

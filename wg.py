@@ -24,7 +24,7 @@ def wgadd(id,group):
                     json.dump(load_dict, f,ensure_ascii=False)
                 return "新增关注["+id+"]"
     with open("wglist.json",'w',encoding='utf-8') as f:
-        newadd = {'id': id,'groupid':[group], 'currgame':'', "recentgame": "0"}
+        newadd = {'id': id,'groupid':[group], 'currgame':'', "recentgame": []}
         load_dict.append(newadd)
         json.dump(load_dict, f,ensure_ascii=False)
         return "新增关注["+id+"]"
@@ -67,25 +67,6 @@ def wgsync():
     print("On syncing TH score...")
     with open("wglist.json",'r',encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
-    for player in load_dict:
-        tar = url+urllib.parse.quote(str(player["id"]))
-        r = requests.get(tar)
-        res = json.loads(r.text)
-
-        index = len(res["list"])-1
-        lastmatch = 0
-        while True:
-            lastmatch = res["list"][index]
-            if (lastmatch["sctype"] == "a") or(lastmatch["playerlevel"] == "0")or(lastmatch["playerlevel"] == "1"):
-                index = index - 1
-                if index == -1:
-                    lastmatch = 0
-            else:
-                break
-        if(lastmatch == 0):
-            player["recentgame"] = "N/A"
-        else:
-            player["recentgame"] = lastmatch["starttime"]
     
     rwg = requests.get(wgurl)
     reswg = json.loads(rwg.text)
@@ -93,10 +74,8 @@ def wgsync():
         for j in i["players"]:
             for k in load_dict:
                 if (k['id'] == j['name']):
-                    if k["recentgame"] == "N/A" or k["recentgame"] == "0":
-                        k["recentgame"] == "-1"
-                    elif (int(k["recentgame"]) > 0):
-                        k["recentgame"] = str(0-int(k["recentgame"]))
+                    if(i["info"]["starttime"] not in k["recentgame"]):
+                        k["recentgame"].append(i["info"]["starttime"])
 
     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                 json.dump(load_dict, f,ensure_ascii=False)
