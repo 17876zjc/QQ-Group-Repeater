@@ -42,7 +42,7 @@ async def thResSche():
                 else:
                     break
             if((int(lastmatch["starttime"])+300) in i["recentgame"]):
-                i["recentgame"].remove(int(lastmatch["starttime"]+300))
+                i["recentgame"].remove(int(lastmatch["starttime"])+300)
                 with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                     json.dump(load_dict, f,ensure_ascii=False)
                 msg = ""
