@@ -161,6 +161,7 @@ def Repeater():
 
     @bot.onCommand('查雀魂|查四麻')
     async def searchQueHun(self):
+        return "功能正在维护中,明天再来吧~"
         name = (self.msg)[5:]
         if (name == ''):
             return "你叫什么名字?"
@@ -169,6 +170,7 @@ def Repeater():
     
     @bot.onCommand('查三麻')
     async def searchQueHunThree(self):
+        return "功能正在维护中,明天再来吧~"
         name = (self.msg)[5:]
         if (name == ''):
             return "你叫什么名字?"
