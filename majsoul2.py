@@ -73,9 +73,11 @@ rankptMax = {
 urlquery = "https://ak-data-1.sapk.ch/api/v2/pl4/search_player/name?limit=20"
 url4_1 = "https://ak-data-1.sapk.ch/api/v2/pl4/player_stats/ID/1262304000000/TIME9999?mode=16.12.9.15.11.8&tag=459520"
 url4_2 = "https://ak-data-6.pikapika.me/api/v2/pl4/player_extended_stats/ID/1262304000000/TIME9999?mode=16.12.9.15.11.8&tag=460396"
+url4_recent = "https://ak-data-6.pikapika.me/api/v2/pl4/player_records/ID/TIME9999/1262304000000?limit=147&mode=16.12.9.15.11.8&descending=true&tag=247"
 
 url3_1 = "https://ak-data-6.pikapika.me/api/v2/pl3/player_stats/ID/1262304000000/TIME9999?mode=26.25.24.23.22.21&tag=460401"
 url3_2 = "https://ak-data-6.pikapika.me/api/v2/pl3/player_extended_stats/ID/1262304000000/TIME9999?mode=26.25.24.23.22.21&tag=460401"
+url3_recent = "https://ak-data-6.pikapika.me/api/v2/pl3/player_records/ID/TIME9999/1262304000000?limit=135&mode=26.25.24.23.22.21&descending=true&tag=35"
 
 def getid(name,mode = 4):
     tar = urlquery.replace("name", name)
@@ -98,6 +100,21 @@ def getmodes(id,mode = 4):
     r = requests.get(tar)
     res = json.loads(r.text)
     return [res["played_modes"],res["max_level"]]
+
+def analyzeRank(selfname,record):
+    selfgrade = 0
+    for item in record["players"]:
+        if item["nickname"] == selfname:
+            selfgrade = item["gradingScore"]
+            break
+    rank = 1
+    for item in record["players"]:
+        if item["nickname"] == selfname:
+            continue
+        else:
+            if(item["gradingScore"] > selfgrade):
+                rank += 1
+    return rank
 
 
 def searchQueHun2(name,mode = 4):
@@ -176,6 +193,28 @@ def searchQueHun2(name,mode = 4):
     r = requests.get(tar)
     res1 = json.loads(r.text)
 
+    if(mode == 3):
+        tar_recent = url3_recent.replace("ID",str(id))
+        tar_recent = tar_recent.replace("TIME",str(int(time.time())))
+        tar_recent = tar_recent.replace("26.25.24.23.22.21",modethis)
+    else:
+        tar_recent = url4_recent.replace("ID",str(id))
+        tar_recent = tar_recent.replace("TIME",str(int(time.time())))
+        tar_recent = tar_recent.replace("16.12.9.15.11.8",modethis)
+    
+    recent_rank = ""
+
+    r_recent = requests.get(tar_recent)
+    res_recent = json.loads(r_recent.text)
+    record_len = len(res_recent)
+    if(record_len >= 10):
+        record_len = 10
+    for i in range(0,record_len):
+        recent_rank += str(analyzeRank(name,res_recent[i]))
+
+
+
+
     if(level["id"] > 20000):
         level["id"] -= 10000
     if(level["score"] + level["delta"] >= int(rankptMax[str(level["id"])])):
@@ -216,6 +255,8 @@ def searchQueHun2(name,mode = 4):
     res += rankptMax[str(maxlevel["id"])] + "pt\n"
     
     res += "对局场数: " + str(res1["count"]) + "场\n\n"
+
+    res += "最近战绩: [" + recent_rank +"]\n\n" 
 
     res += "平均顺位: " + str(round(res1["avg_rank"],3)) + "\n"
     res += "一位率:   " + str(round(res1["rank_rates"][0]*100,2)) + "%\n"
