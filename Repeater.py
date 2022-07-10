@@ -13,6 +13,7 @@ import tenhou
 import tenhou2
 import spider
 import wg
+import majsoul2
 
 async def aioGet(url):
     try:
@@ -171,11 +172,11 @@ def Repeater():
 
     @bot.onCommand('查雀魂|查四麻')
     async def searchQueHun(self):
-        return "功能正在维护中,明天再来吧~"
+        #return "功能正在维护中,明天再来吧~"
         name = (self.msg)[5:]
         if (name == ''):
             return "你叫什么名字?"
-        res = majsoul.searchQueHun(name,4)
+        res = majsoul2.searchQueHun2(name,4)
         return res
     
     @bot.onCommand('查三麻')
