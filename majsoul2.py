@@ -87,7 +87,7 @@ def getid(name,mode = 4):
     if len(res) == 0:
         return ["",None]
     # 可能会有多个结果，这里就当只有一个了
-    return [res[0]['nickname'],res[0]['id']]
+    return [res[0]['nickname'],res[0]['id'],res[0]["level"]]
 
 def getmodes(id,mode = 4):
     if(mode == 3):
@@ -97,7 +97,7 @@ def getmodes(id,mode = 4):
     tar = tar.replace("TIME",str(int(time.time())))
     r = requests.get(tar)
     res = json.loads(r.text)
-    return res["played_modes"]
+    return [res["played_modes"],res["max_level"]]
 
 
 def searchQueHun2(name,mode = 4):
@@ -124,13 +124,13 @@ def searchQueHun2(name,mode = 4):
                 else:
                     return ("输入的场次 "+test+" 找不到呢~")
     
-    [name,id] = getid(name,mode)
+    [name,id,level] = getid(name,mode)
     if(id == None):
         return "没有查到呢~"
 
-    modes = getmodes(id)
+    [modes,maxlevel] = getmodes(id,mode)
     for i in table:
-        if int(table4[tablech.index(i)]) not in modes:
+        if ((mode == 4) and (int(table4[tablech.index(i)]) not in modes)) or ((mode == 3) and (int(table3[tablech.index(i)]) not in modes)):
             error = "没有找到在"
             if(mode == 4):
                 error += "<四麻>"
@@ -176,25 +176,44 @@ def searchQueHun2(name,mode = 4):
     r = requests.get(tar)
     res1 = json.loads(r.text)
 
-    if(res1["level"]["id"] > 20000):
-        res1["level"]["id"] -= 10000
-    if(res1["max_level"]["id"] > 20000):
-        res1["max_level"]["id"] -= 10000
+    if(level["id"] > 20000):
+        level["id"] -= 10000
+    if(level["score"] + level["delta"] >= int(rankptMax[str(level["id"])])):
+        level["id"] += 1
+        if(level["id"] % 10 == 4):
+            level["id"] -= 3
+            level["id"] += 100
+            if(level["id"] % 100 == 6):
+                level["id"] += 100
+        level["score"] = int(rankptMax[str(level["id"])])/2
+        level["delta"] = 0 
+
+    if(maxlevel["id"] > 20000):
+        maxlevel["id"] -= 10000
+    if(maxlevel["score"] + maxlevel["delta"] >= int(rankptMax[str(maxlevel["id"])])):
+        maxlevel["id"] += 1
+        if(maxlevel["id"] % 10 == 4):
+            maxlevel["id"] -= 3
+            maxlevel["id"] += 100
+            if(maxlevel["id"] % 100 == 6):
+                maxlevel["id"] += 100
+        maxlevel["score"] = int(rankptMax[str(maxlevel["id"])])/2
+        maxlevel["delta"] = 0 
 
 
-    res += "记录等级: " + ranktable[str(res1["level"]["id"])] + " "
-    if(str(res1["level"]["id"])[2] == "7"):
-        res += str((res1["level"]["score"] + res1["level"]["delta"])/100) + "/" 
+    res += "记录等级: " + ranktable[str(level["id"])] + " "
+    if(str(level["id"])[2] == "7"):
+        res += str((level["score"] + level["delta"])/100) + "/" 
     else:
-        res += str(res1["level"]["score"] + res1["level"]["delta"]) + "/" 
-    res += rankptMax[str(res1["level"]["id"])] + "pt\n"
+        res += str(int(level["score"] + level["delta"])) + "/" 
+    res += rankptMax[str(level["id"])] + "pt\n"
     
-    res += "历史最高: " + ranktable[str(res1["max_level"]["id"])] + " " 
-    if(str(res1["max_level"]["id"])[2] == "7"):
-        res += str((res1["max_level"]["score"] + res1["max_level"]["delta"])/100) + "/" 
+    res += "历史最高: " + ranktable[str(maxlevel["id"])] + " " 
+    if(str(maxlevel["id"])[2] == "7"):
+        res += str((maxlevel["score"] + maxlevel["delta"])/100) + "/" 
     else:
-        res += str(res1["max_level"]["score"] + res1["max_level"]["delta"]) + "/" 
-    res += rankptMax[str(res1["max_level"]["id"])] + "pt\n"
+        res += str(int(maxlevel["score"] + maxlevel["delta"])) + "/" 
+    res += rankptMax[str(maxlevel["id"])] + "pt\n"
     
     res += "对局场数: " + str(res1["count"]) + "场\n\n"
 
@@ -204,6 +223,8 @@ def searchQueHun2(name,mode = 4):
     res += "三位率:   " + str(round(res1["rank_rates"][2]*100,2)) + "%\n"
     if(mode == 4):
         res += "四位率:   " + str(round(res1["rank_rates"][3]*100,2)) + "%\n\n"
+    else:
+        res += "\n"
 
     if(mode == 3):
         tar2 = url3_2.replace("ID",str(id))
@@ -224,3 +245,5 @@ def searchQueHun2(name,mode = 4):
     res += "自摸率:   " + str(round(res2["自摸率"]*100,2)) + "%\n"  
 
     return res
+
+print(searchQueHun2("vacvase 王座",3))
