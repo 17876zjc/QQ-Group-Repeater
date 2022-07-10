@@ -74,6 +74,9 @@ urlquery = "https://ak-data-1.sapk.ch/api/v2/pl4/search_player/name?limit=20"
 url4_1 = "https://ak-data-1.sapk.ch/api/v2/pl4/player_stats/ID/1262304000000/TIME9999?mode=16.12.9.15.11.8&tag=459520"
 url4_2 = "https://ak-data-6.pikapika.me/api/v2/pl4/player_extended_stats/ID/1262304000000/TIME9999?mode=16.12.9.15.11.8&tag=460396"
 
+url3_1 = "https://ak-data-6.pikapika.me/api/v2/pl3/player_stats/ID/1262304000000/TIME9999?mode=26.25.24.23.22.21&tag=460401"
+url3_2 = "https://ak-data-6.pikapika.me/api/v2/pl3/player_extended_stats/ID/1262304000000/TIME9999?mode=26.25.24.23.22.21&tag=460401"
+
 def getid(name,mode = 4):
     tar = urlquery.replace("name", name)
     if (mode == 3):
@@ -87,7 +90,10 @@ def getid(name,mode = 4):
     return [res[0]['nickname'],res[0]['id']]
 
 def getmodes(id,mode = 4):
-    tar = url4_1.replace("ID",str(id))
+    if(mode == 3):
+        tar = url3_1.replace("ID",str(id))
+    else:
+        tar = url4_1.replace("ID",str(id))
     tar = tar.replace("TIME",str(int(time.time())))
     r = requests.get(tar)
     res = json.loads(r.text)
@@ -138,7 +144,11 @@ def searchQueHun2(name,mode = 4):
                         error += (" [" + tablech[table3.index(k)] + "]")
             return error
 
-    modethis = "16.12.9.15.11.8"
+    if mode == 3:
+        modethis = "26.25.24.23.22.21"
+    else:
+        modethis = "16.12.9.15.11.8"
+
     res = name + "\n查询范围:"
     if (table  == []):
         res += " 全部对局\n\n"
@@ -146,16 +156,31 @@ def searchQueHun2(name,mode = 4):
         modethis = ""
         for i in table:
             res +=(" ["+i+"]")
-            modethis += str(table4[tablech.index(i)])
+            if(mode == 3):
+                modethis += str(table3[tablech.index(i)])
+            else:
+                modethis += str(table4[tablech.index(i)])
             modethis += "."
         res += "\n\n"
         modethis = modethis[:-1]
     
-    tar = url4_1.replace("ID",str(id))
-    tar = tar.replace("TIME",str(int(time.time())))
-    tar = tar.replace("16.12.9.15.11.8",modethis)
+    if(mode == 3):
+        tar = url3_1.replace("ID",str(id))
+        tar = tar.replace("TIME",str(int(time.time())))
+        tar = tar.replace("26.25.24.23.22.21",modethis)
+    else:
+        tar = url4_1.replace("ID",str(id))
+        tar = tar.replace("TIME",str(int(time.time())))
+        tar = tar.replace("16.12.9.15.11.8",modethis)
+
     r = requests.get(tar)
     res1 = json.loads(r.text)
+
+    if(res["level"]["id"] > 20000):
+        res["level"]["id"] -= 10000
+    if(res["max_level"]["id"] > 20000):
+        res["max_level"]["id"] -= 10000
+
 
     res += "记录等级: " + ranktable[str(res1["level"]["id"])] + " "
     if(str(res1["level"]["id"])[2] == "7"):
@@ -177,11 +202,17 @@ def searchQueHun2(name,mode = 4):
     res += "一位率:   " + str(round(res1["rank_rates"][0]*100,2)) + "%\n"
     res += "二位率:   " + str(round(res1["rank_rates"][1]*100,2)) + "%\n"
     res += "三位率:   " + str(round(res1["rank_rates"][2]*100,2)) + "%\n"
-    res += "四位率:   " + str(round(res1["rank_rates"][3]*100,2)) + "%\n\n"
+    if(mode == 4):
+        res += "四位率:   " + str(round(res1["rank_rates"][3]*100,2)) + "%\n\n"
 
-    tar2 = url4_2.replace("ID",str(id))
-    tar2 = tar2.replace("TIME",str(int(time.time())))
-    tar2 = tar2.replace("16.12.9.15.11.8",modethis)
+    if(mode == 3):
+        tar2 = url3_2.replace("ID",str(id))
+        tar2 = tar2.replace("TIME",str(int(time.time())))
+        tar2 = tar2.replace("26.25.24.23.22.21",modethis)
+    else:
+        tar2 = url4_2.replace("ID",str(id))
+        tar2 = tar2.replace("TIME",str(int(time.time())))
+        tar2 = tar2.replace("16.12.9.15.11.8",modethis)
     r2 = requests.get(tar2)
     res2 = json.loads(r2.text)
 
