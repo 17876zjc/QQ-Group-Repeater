@@ -157,8 +157,20 @@ def searchQueHun2(name,mode = 4):
     r = requests.get(tar)
     res1 = json.loads(r.text)
 
-    res += "记录等级: " + ranktable[str(res1["level"]["id"])] + " "+ str(res1["level"]["score"] + res1["level"]["delta"]) + "/" + rankptMax[str(res1["level"]["id"])] + "pt\n"
-    res += "历史最高: " + ranktable[str(res1["max_level"]["id"])] + " " + str(res1["max_level"]["score"] + res1["max_level"]["delta"]) + "/" + rankptMax[str(res1["max_level"]["id"])] + "pt\n"
+    res += "记录等级: " + ranktable[str(res1["level"]["id"])] + " "
+    if(str(res1["level"]["id"])[2] == "7"):
+        res += str((res1["level"]["score"] + res1["level"]["delta"])/100) + "/" 
+    else:
+        res += str(res1["level"]["score"] + res1["level"]["delta"]) + "/" 
+    res += rankptMax[str(res1["level"]["id"])] + "pt\n"
+    
+    res += "历史最高: " + ranktable[str(res1["max_level"]["id"])] + " " 
+    if(str(res1["max_level"]["id"])[2] == "7"):
+        res += str((res1["max_level"]["score"] + res1["max_level"]["delta"])/100) + "/" 
+    else:
+        res += str(res1["max_level"]["score"] + res1["max_level"]["delta"]) + "/" 
+    res += rankptMax[str(res1["max_level"]["id"])] + "pt\n"
+    
     res += "对局场数: " + str(res1["count"]) + "场\n\n"
 
     res += "平均顺位: " + str(round(res1["avg_rank"],3)) + "\n"
