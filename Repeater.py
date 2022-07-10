@@ -181,11 +181,11 @@ def Repeater():
     
     @bot.onCommand('查三麻')
     async def searchQueHunThree(self):
-        return "功能正在维护中,明天再来吧~"
+        #return "功能正在维护中,明天再来吧~"
         name = (self.msg)[5:]
         if (name == ''):
             return "你叫什么名字?"
-        res = majsoul.searchQueHun(name,3)
+        res = majsoul2.searchQueHun2(name,3)
         return res
 
     @bot.onCommand('查天凤')
