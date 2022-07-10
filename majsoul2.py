@@ -48,26 +48,26 @@ rankptMax = {
     "10501" : "4000",
     "10502" : "6000",
     "10503" : "9000",
-    "10701" : "20.0",
-    "10702" : "20.0",
-    "10703" : "20.0",
-    "10704" : "20.0",
-    "10705" : "20.0",
-    "10706" : "20.0",
-    "10707" : "20.0",
-    "10708" : "20.0",
-    "10709" : "20.0",
-    "10710" : "20.0",
-    "10711" : "20.0",
-    "10712" : "20.0",
-    "10713" : "20.0",
-    "10714" : "20.0",
-    "10715" : "20.0",
-    "10716" : "20.0",
-    "10717" : "20.0",
-    "10718" : "20.0",
-    "10719" : "20.0",
-    "10720" : "20.0",
+    "10701" : "20",
+    "10702" : "20",
+    "10703" : "20",
+    "10704" : "20",
+    "10705" : "20",
+    "10706" : "20",
+    "10707" : "20",
+    "10708" : "20",
+    "10709" : "20",
+    "10710" : "20",
+    "10711" : "20",
+    "10712" : "20",
+    "10713" : "20",
+    "10714" : "20",
+    "10715" : "20",
+    "10716" : "20",
+    "10717" : "20",
+    "10718" : "20",
+    "10719" : "20",
+    "10720" : "20",
     }
 
 urlquery = "https://ak-data-1.sapk.ch/api/v2/pl4/search_player/name?limit=20"
@@ -101,12 +101,29 @@ def getmodes(id,mode = 4):
     res = json.loads(r.text)
     return [res["played_modes"],res["max_level"]]
 
-def analyzeRank(selfname,record):
+def analyzeRank(selfname,record,isHunTian,mode):
     selfgrade = 0
     for item in record["players"]:
         if item["nickname"] == selfname:
             selfgrade = item["gradingScore"]
             break
+    if(isHunTian):
+        if(mode == 4):
+            if((selfgrade == 100) or (selfgrade == 60) or (selfgrade == 50) or (selfgrade == 30)):
+                return 1
+            elif((selfgrade == 40) or (selfgrade == 20) or (selfgrade == 10)):
+                return 2
+            elif((selfgrade == -40) or (selfgrade == -20) or (selfgrade == -10)):
+                return 3
+            else:
+                return 4
+        else:
+            if((selfgrade == 100) or (selfgrade == 60) or (selfgrade == 50) or (selfgrade == 30)):
+                return 1
+            elif((selfgrade == 0)):
+                return 2
+            else:
+                return 3
     rank = 1
     for item in record["players"]:
         if item["nickname"] == selfname:
@@ -204,40 +221,49 @@ def searchQueHun2(name,mode = 4):
     
     recent_rank = ""
 
-    r_recent = requests.get(tar_recent)
-    res_recent = json.loads(r_recent.text)
-    record_len = len(res_recent)
-    if(record_len >= 10):
-        record_len = 10
-    for i in range(0,record_len):
-        recent_rank += str(analyzeRank(name,res_recent[i]))
-
 
 
 
     if(level["id"] > 20000):
         level["id"] -= 10000
-    if(level["score"] + level["delta"] >= int(rankptMax[str(level["id"])])):
+    maxpt = int(rankptMax[str(level["id"])])
+    if(int(level["id"]/100)%10 == 7):
+        maxpt = maxpt * 100
+    if(level["score"] + level["delta"] >= maxpt):
         level["id"] += 1
         if(level["id"] % 10 == 4):
             level["id"] -= 3
             level["id"] += 100
-            if(level["id"] % 100 == 6):
+            if(int(level["id"]/100) % 10 == 6):
                 level["id"] += 100
         level["score"] = int(rankptMax[str(level["id"])])/2
         level["delta"] = 0 
 
     if(maxlevel["id"] > 20000):
         maxlevel["id"] -= 10000
-    if(maxlevel["score"] + maxlevel["delta"] >= int(rankptMax[str(maxlevel["id"])])):
+    maxpt = int(rankptMax[str(maxlevel["id"])])
+    if(int(maxlevel["id"]/100)%10 == 7):
+        maxpt = maxpt * 100
+    if(maxlevel["score"] + maxlevel["delta"] >= maxpt):
         maxlevel["id"] += 1
         if(maxlevel["id"] % 10 == 4):
             maxlevel["id"] -= 3
             maxlevel["id"] += 100
-            if(maxlevel["id"] % 100 == 6):
+            if(int(maxlevel["id"]/100) % 10 == 6):
                 maxlevel["id"] += 100
         maxlevel["score"] = int(rankptMax[str(maxlevel["id"])])/2
         maxlevel["delta"] = 0 
+
+    r_recent = requests.get(tar_recent)
+    res_recent = json.loads(r_recent.text)
+    record_len = len(res_recent)
+
+    isHunTian = (int(level["id"]/100)%10 == 7)
+
+    if(record_len >= 10):
+        record_len = 10
+    for i in range(0,record_len):
+        recent_rank += str(analyzeRank(name,res_recent[i],isHunTian,mode))
 
 
     res += "记录等级: " + ranktable[str(level["id"])] + " "
@@ -245,14 +271,14 @@ def searchQueHun2(name,mode = 4):
         res += str((level["score"] + level["delta"])/100) + "/" 
     else:
         res += str(int(level["score"] + level["delta"])) + "/" 
-    res += rankptMax[str(level["id"])] + "pt\n"
+    res += rankptMax[str(level["id"])] + " pt\n"
     
     res += "历史最高: " + ranktable[str(maxlevel["id"])] + " " 
     if(str(maxlevel["id"])[2] == "7"):
         res += str((maxlevel["score"] + maxlevel["delta"])/100) + "/" 
     else:
         res += str(int(maxlevel["score"] + maxlevel["delta"])) + "/" 
-    res += rankptMax[str(maxlevel["id"])] + "pt\n"
+    res += rankptMax[str(maxlevel["id"])] + " pt\n"
     
     res += "对局场数: " + str(res1["count"]) + "场\n\n"
 
