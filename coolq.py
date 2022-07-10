@@ -116,17 +116,20 @@ def sche():
     print("Runnig Sche")
     cron  = CronTab(user = True)
     cron.remove_all()
-    job1 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/dailysche.py',comment = 'send test')
+    job1 = cron.new(command = 'sudo python3 ~/QQ/QQ-Group-Repeater/dailysche.py',comment = 'send test')
     job1.setall('0 20 * * *')
 
     #job2 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/dailysche.py',comment = 'send test')
     #job2.setall('0 8 * * *')
     
-    job3 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/wgsche.py >> wgout.txt  2>&1',comment = 'wg')
+    job3 = cron.new(command = 'sudo python3 ~/QQ/QQ-Group-Repeater/wgsche.py >> wgout.txt  2>&1',comment = 'wg')
     job3.setall('*/5 * * * *')
 
-    job4 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/thresultsche.py >> thout.txt  2>&1',comment = 'th')
+    job4 = cron.new(command = 'sudo python3 ~/QQ/QQ-Group-Repeater/thresultsche.py >> thout.txt  2>&1',comment = 'th')
     job4.setall('*/5 * * * *')
+
+    job5 = cron.new(command = 'sudo rm ~/*.txt')
+    job5.setall('0 0 * * *')
 
     cron.write()
     print("Starting schedule")

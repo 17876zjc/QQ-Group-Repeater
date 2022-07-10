@@ -73,6 +73,16 @@ def Repeater():
         res = solve24(tmp_reg.group(1).split())
         return res if res else getReply("24_failed")
     """
+	
+	
+    #@bot.onCommand(r'Tu')
+    #async def testTu(self):
+    	#print("Sending...")
+    	#url = "dijian.png"
+    	#ans = f"[CQ:image,file={url}]"
+    	#print(ans)
+    	#return ans
+    
     @bot.onCommand(r'help|Help')
     async def dispHelp(self):
         str = "Help message:\n\n"
