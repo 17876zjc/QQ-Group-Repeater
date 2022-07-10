@@ -245,5 +245,3 @@ def searchQueHun2(name,mode = 4):
     res += "自摸率:   " + str(round(res2["自摸率"]*100,2)) + "%\n"  
 
     return res
-
-print(searchQueHun2("vacvase 王座",3))
