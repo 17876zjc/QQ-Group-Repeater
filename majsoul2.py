@@ -176,10 +176,10 @@ def searchQueHun2(name,mode = 4):
     r = requests.get(tar)
     res1 = json.loads(r.text)
 
-    if(res["level"]["id"] > 20000):
-        res["level"]["id"] -= 10000
-    if(res["max_level"]["id"] > 20000):
-        res["max_level"]["id"] -= 10000
+    if(res1["level"]["id"] > 20000):
+        res1["level"]["id"] -= 10000
+    if(res1["max_level"]["id"] > 20000):
+        res1["max_level"]["id"] -= 10000
 
 
     res += "记录等级: " + ranktable[str(res1["level"]["id"])] + " "
