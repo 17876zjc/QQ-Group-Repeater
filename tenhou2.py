@@ -149,7 +149,7 @@ def getinfo(name):
             flag = true
             if(lv == 0 and len == 1):
                 t = time.localtime(thistime)
-                print(t)
+                #print(t)
                 if thistime < 1508857200 :
                     flag = false
                     if rank == 1:
