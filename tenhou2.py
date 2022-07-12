@@ -155,7 +155,7 @@ def getinfo(name):
                             flag = false
                             if rank == 1:
                                 ptDelta = 30
-                            elif rank == 2 or ptDelta == 3:
+                            elif rank == 2 or rank == 3:
                                 ptDelta = 0
                             else:
                                 ptDelta = 0 - levelmap[currank]['losescore'][len-1]
