@@ -318,10 +318,10 @@ def searchQueHun2(name,mode = 4):
     FangChong = res2["和牌率"]
     if(FangChong == None):
         FangChong = 0
-    MoTin = res2["默听"]
+    MoTin = res2["默听率"]
     if(MoTin == None):
         MoTin = 0
-    ZiMo = res2["自摸"]
+    ZiMo = res2["自摸率"]
     if(ZiMo == None):
         ZiMo = 0
     res += "立直率:   " + str(round(LiZhi*100,2)) + "%\n"
