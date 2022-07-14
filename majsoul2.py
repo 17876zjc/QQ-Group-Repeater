@@ -315,7 +315,7 @@ def searchQueHun2(name,mode = 4):
     HePai = res2["和牌率"]
     if(HePai == None):
         HePai = 0
-    FangChong = res2["和牌率"]
+    FangChong = res2["放铳率"]
     if(FangChong == None):
         FangChong = 0
     MoTin = res2["默听率"]
