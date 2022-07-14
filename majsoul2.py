@@ -2,6 +2,8 @@ import requests
 import json
 import time
 
+from sympy import FU, motzkin
+
 tablech = ["王座","王座东","玉","玉东","金","金东"]
 table4 = ["16","15","12","11","9","8"]
 table3 = ["26","25","24","23","22","21"]
@@ -304,11 +306,29 @@ def searchQueHun2(name,mode = 4):
     r2 = requests.get(tar2)
     res2 = json.loads(r2.text)
 
-    res += "立直率:   " + str(round(res2["立直率"]*100,2)) + "%\n"
-    res += "副露率:   " + str(round(res2["副露率"]*100,2)) + "%\n" 
-    res += "和牌率:   " + str(round(res2["和牌率"]*100,2)) + "%\n" 
-    res += "放铳率:   " + str(round(res2["放铳率"]*100,2)) + "%\n" 
-    res += "默听率:   " + str(round(res2["默听率"]*100,2)) + "%\n"
-    res += "自摸率:   " + str(round(res2["自摸率"]*100,2)) + "%\n"  
+    LiZhi = res2["立直率"]
+    if(LiZhi == None):
+        LiZhi = 0
+    FuLu =  res2["副露率"]
+    if(FuLu == None):
+        FuLu = 0
+    HePai = res2["和牌率"]
+    if(HePai == None):
+        HePai = 0
+    FangChong = res2["和牌率"]
+    if(FangChong == None):
+        FangChong = 0
+    MoTin = res2["默听"]
+    if(MoTin == None):
+        MoTin = 0
+    ZiMo = res2["自摸"]
+    if(ZiMo == None):
+        ZiMo = 0
+    res += "立直率:   " + str(round(LiZhi*100,2)) + "%\n"
+    res += "副露率:   " + str(round(FuLu*100,2)) + "%\n" 
+    res += "和牌率:   " + str(round(HePai*100,2)) + "%\n" 
+    res += "放铳率:   " + str(round(FangChong*100,2)) + "%\n" 
+    res += "默听率:   " + str(round(MoTin*100,2)) + "%\n"
+    res += "自摸率:   " + str(round(ZiMo*100,2)) + "%\n"  
 
     return res
