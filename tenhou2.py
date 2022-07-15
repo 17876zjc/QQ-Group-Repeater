@@ -67,7 +67,7 @@ def getRank(list,name):
             lasttime = thistime
         if((i['sctype'] == "b" or i['sctype'] == "c") and i['playernum'] == "4"):
             lv = int(i['playerlevel'])
-            len = int(i['playlength'])
+            len_ = int(i['playlength'])
             pt = 0
             for j in range(1,5):
                 if i['player'+str(j)] == str(name):
@@ -79,7 +79,7 @@ def getRank(list,name):
                     rank = rank+1
             ptDelta = 0
             flag = true
-            if(lv == 0 and len == 1):
+            if(lv == 0 and len_ == 1):
                 t = time.localtime(thistime)
                 if t.tm_year<=2017:
                     if t.tm_mon<=10:
@@ -90,12 +90,12 @@ def getRank(list,name):
                             elif rank == 2 or ptDelta == 3:
                                 ptDelta = 0
                             else:
-                                ptDelta = 0 - levelmap[currank]['losescore'][len-1]
+                                ptDelta = 0 - levelmap[currank]['losescore'][len_-1]
             if flag == true:
                 if rank == 4:
-                    ptDelta = 0 - levelmap[currank]['losescore'][len-1]
+                    ptDelta = 0 - levelmap[currank]['losescore'][len_-1]
                 else:
-                    ptDelta = ptchange['4'][len-1][str(lv)][rank-1]
+                    ptDelta = ptchange['4'][len_-1][str(lv)][rank-1]
             #print(ptDelta)
             currpt = currpt + ptDelta
             if(currpt >= levelmap[currank]['maxscore']):
@@ -134,7 +134,7 @@ def getinfo(name):
             lasttime = thistime
         if((i['sctype'] == "b" or i['sctype'] == "c") and i['playernum'] == "4"):
             lv = int(i['playerlevel'])
-            len = int(i['playlength'])
+            len_ = int(i['playlength'])
             pt = 0
             for j in range(1,5):
                 if i['player'+str(j)] == str(name):
@@ -147,7 +147,7 @@ def getinfo(name):
             position[rank-1] = position[rank-1] + 1
             ptDelta = 0
             flag = true
-            if(lv == 0 and len == 1):
+            if(lv == 0 and len_ == 1):
                 t = time.localtime(thistime)
                 #print(t)
                 if thistime < 1508857200 :
@@ -157,12 +157,12 @@ def getinfo(name):
                     elif rank == 2 or rank == 3:
                         ptDelta = 0
                     else:
-                        ptDelta = 0 - levelmap[currank]['losescore'][len-1]
+                        ptDelta = 0 - levelmap[currank]['losescore'][len_-1]
             if flag == true:
                 if rank == 4:
-                    ptDelta = 0 - levelmap[currank]['losescore'][len-1]
+                    ptDelta = 0 - levelmap[currank]['losescore'][len_-1]
                 else:
-                    ptDelta = ptchange['4'][len-1][str(lv)][rank-1]
+                    ptDelta = ptchange['4'][len_-1][str(lv)][rank-1]
             #print(ptDelta)
             currpt = currpt + ptDelta
             if(currpt >= levelmap[currank]['maxscore']):
