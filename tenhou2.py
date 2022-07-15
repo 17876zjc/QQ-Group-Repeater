@@ -182,7 +182,31 @@ def getinfo(name):
     if currank==20:
         maxpt = currpt = 2200
         maxrank = 20
-    
+
+
+    recentrank = ""
+    recordlen = len(res['list'])
+    count = -1
+    while(len(recentrank)<10):
+        if(count + recordlen < 0):
+            break
+        i = res['list'][count]
+        count = count - 1
+        if(not((i['sctype'] == "b" or i['sctype'] == "c") and i['playernum'] == "4")):
+            continue
+        pt = 0
+        for j in range(1,5):
+            if i['player'+str(j)] == str(name):
+                pt = double(i['player'+str(j)+'ptr'])
+                break
+        rank = 1
+        for j in range(1,5):
+            if double(i['player'+str(j)+'ptr']) > pt:
+                rank = rank+1
+        recentrank += str(rank)
+        
+
+
     ans = (name+"\n当前段位: "+levelmap[currank]['name']+" "+str(currpt)+"pt")
     if (currank == maxrank and currpt == maxpt):
         ans = ans + "★"
@@ -196,6 +220,8 @@ def getinfo(name):
     res1 = json.loads(r1.text)
     if "4" in res1:
         ans = ans+"\n段位排名: "+str(res1['4']['graderank'])+" 名"
+
+    ans = ans + "\n\n最近战绩: ["+recentrank+"]" 
 
     gamenum = position[0]+position[1]+position[2]+position[3]
     ans = ans+"\n\n总计对战: "+str(gamenum)+ " 场\n"
