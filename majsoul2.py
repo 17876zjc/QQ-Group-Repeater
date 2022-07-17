@@ -109,7 +109,7 @@ def analyzeRank(selfname,record,mode):
     notHunTianNum = mode
     selfIsHunTian = False
     for item in record["players"]:
-        if (item["level"]/100)%10 ==7:
+        if (int(item["level"]/100))%10 ==7:
             selfgrade = item["gradingScore"]
             notHunTianNum -= 1
             rankthis = 0
@@ -130,6 +130,7 @@ def analyzeRank(selfname,record,mode):
                 else:
                     rankthis = 3
             rankList[rankthis-1] = item["nickname"]
+            #print("Adding" + item["nickname"] + "to place" + str(rankthis-1))
             if(selfname == item["nickname"]):
                 selfIsHunTian = True
                 break
@@ -141,7 +142,7 @@ def analyzeRank(selfname,record,mode):
                 selfgrade = item["gradingScore"]
                 break
         for item in record["players"]:
-            if (item["nickname"] == selfname or (item["level"]/100)%10 ==7):
+            if (item["nickname"] == selfname or (int(item["level"]/100))%10 ==7):
                 continue
             if(item["gradingScore"] > selfgrade):
                 selfRank += 1
@@ -150,7 +151,7 @@ def analyzeRank(selfname,record,mode):
                 selfRank -= 1
                 if(selfRank == 0):
                     rankList[i] = selfname
-    
+    #print(rankList)
     return (rankList.index(selfname)+1)
 
 
