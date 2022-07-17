@@ -103,13 +103,15 @@ def getmodes(id,mode = 4):
     res = json.loads(r.text)
     return [res["played_modes"],res["max_level"]]
 
-def analyzeRank(selfname,record,isHunTian,mode):
+def analyzeRank(selfname,record,mode):
     selfgrade = 0
+    selfplayer = None
     for item in record["players"]:
         if item["nickname"] == selfname:
             selfgrade = item["gradingScore"]
+            selfplayer = item
             break
-    if(isHunTian):
+    if((selfplayer["level"]/100)%10 == 7):
         if(mode == 4):
             if((selfgrade == 100) or (selfgrade == 60) or (selfgrade == 50) or (selfgrade == 30)):
                 return 1
@@ -260,12 +262,12 @@ def searchQueHun2(name,mode = 4):
     res_recent = json.loads(r_recent.text)
     record_len = len(res_recent)
 
-    isHunTian = (int(level["id"]/100)%10 == 7)
+    #isHunTian = (int(level["id"]/100)%10 == 7)
 
     if(record_len >= 10):
         record_len = 10
     for i in range(0,record_len):
-        recent_rank += str(analyzeRank(name,res_recent[i],isHunTian,mode))
+        recent_rank += str(analyzeRank(name,res_recent[i],mode))
 
 
     res += "记录等级: " + ranktable[str(level["id"])] + " "
