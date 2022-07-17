@@ -145,7 +145,7 @@ def analyzeRank(selfname,record,mode):
                 continue
             if(item["gradingScore"] > selfgrade):
                 selfRank += 1
-        for i in range(0,5):
+        for i in range(0,4):
             if(rankList[i] == ""):
                 selfRank -= 1
                 if(selfRank == 0):
