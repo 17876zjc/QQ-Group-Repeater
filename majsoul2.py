@@ -105,7 +105,57 @@ def getmodes(id,mode = 4):
 
 def analyzeRank(selfname,record,mode):
     selfgrade = 0
-    selfplayer = None
+    rankList = ["","","",""]
+    notHunTianNum = mode
+    selfIsHunTian = False
+    for item in record["players"]:
+        if (item["level"]/100)%10 ==7:
+            selfgrade = item["gradingScore"]
+            notHunTianNum -= 1
+            rankthis = 0
+            if(mode == 4):
+                if((selfgrade == 100) or (selfgrade == 60) or (selfgrade == 50) or (selfgrade == 30)):
+                    rankthis = 1
+                elif((selfgrade == 40) or (selfgrade == 20) or (selfgrade == 10)):
+                    rankthis = 2
+                elif((selfgrade == -40) or (selfgrade == -20) or (selfgrade == -10)):
+                    rankthis = 3
+                else:
+                    rankthis = 4
+            else:
+                if((selfgrade == 100) or (selfgrade == 60) or (selfgrade == 50) or (selfgrade == 30)):
+                    rankthis = 1
+                elif((selfgrade == 0)):
+                    rankthis = 2
+                else:
+                    rankthis = 3
+            rankList[rankthis-1] = item["nickname"]
+            if(selfname == item["nickname"]):
+                selfIsHunTian = True
+                break
+    
+    if(notHunTianNum > 0 and (not selfIsHunTian)):
+        selfRank = 1
+        for item in record["players"]:
+            if (item["nickname"] == selfname):
+                selfgrade = item["gradingScore"]
+                break
+        for item in record["players"]:
+            if (item["nickname"] == selfname or (item["level"]/100)%10 ==7):
+                continue
+            if(item["gradingScore"] > selfgrade):
+                selfRank += 1
+        for i in range(0,5):
+            if(rankList[i] == ""):
+                selfRank -= 1
+                if(selfRank == 0):
+                    rankList[i] = selfname
+    
+    return (rankList.index(selfname)+1)
+
+
+
+    """
     for item in record["players"]:
         if item["nickname"] == selfname:
             selfgrade = item["gradingScore"]
@@ -136,7 +186,7 @@ def analyzeRank(selfname,record,mode):
             if(item["gradingScore"] > selfgrade):
                 rank += 1
     return rank
-
+    """
 
 def searchQueHun2(name,mode = 4):
     table = []
