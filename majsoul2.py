@@ -276,9 +276,6 @@ def searchQueHun2(name,mode = 4):
     
     recent_rank = ""
 
-
-
-
     if(level["id"] > 20000):
         level["id"] -= 10000
     maxpt = int(rankptMax[str(level["id"])])
@@ -291,7 +288,11 @@ def searchQueHun2(name,mode = 4):
             level["id"] += 100
             if(int(level["id"]/100) % 10 == 6):
                 level["id"] += 100
-        level["score"] = int(rankptMax[str(level["id"])])/2
+
+        if(int(level["id"]/100) % 10 == 7):
+            level["score"] = 1000
+        else:
+            level["score"] = int(rankptMax[str(level["id"])])/2
         level["delta"] = 0 
 
     if(maxlevel["id"] > 20000):
@@ -306,8 +307,11 @@ def searchQueHun2(name,mode = 4):
             maxlevel["id"] += 100
             if(int(maxlevel["id"]/100) % 10 == 6):
                 maxlevel["id"] += 100
-        maxlevel["score"] = int(rankptMax[str(maxlevel["id"])])/2
-        maxlevel["delta"] = 0 
+        if(int(maxlevel["id"]/100) % 10 == 7):
+            maxlevel["score"] = 1000
+        else:
+            maxlevel["score"] = int(rankptMax[str(maxlevel["id"])])/2
+        maxlevel["delta"] = 0
 
     r_recent = requests.get(tar_recent)
     res_recent = json.loads(r_recent.text)
