@@ -103,7 +103,7 @@ def getmodes(id,mode = 4):
     res = json.loads(r.text)
     return [res["played_modes"],res["max_level"]]
 
-def analyzeRank(selfname,record,mode):
+def analyzeRank(selfID,record,mode):
     selfgrade = 0
     rankList = ["","","",""]
     notHunTianNum = mode
@@ -129,20 +129,20 @@ def analyzeRank(selfname,record,mode):
                     rankthis = 2
                 else:
                     rankthis = 3
-            rankList[rankthis-1] = item["nickname"]
-            #print("Adding" + item["nickname"] + "to place" + str(rankthis-1))
-            if(selfname == item["nickname"]):
+            rankList[rankthis-1] = item["accountId"]
+
+            if(selfID == item["accountId"]):
                 selfIsHunTian = True
                 break
     
     if(notHunTianNum > 0 and (not selfIsHunTian)):
         selfRank = 1
         for item in record["players"]:
-            if (item["nickname"] == selfname):
+            if (item["accountId"] == selfID):
                 selfgrade = item["gradingScore"]
                 break
         for item in record["players"]:
-            if (item["nickname"] == selfname or (int(item["level"]/100))%10 ==7):
+            if (item["accountId"] == selfID or (int(item["level"]/100))%10 ==7):
                 continue
             if(item["gradingScore"] > selfgrade):
                 selfRank += 1
@@ -150,44 +150,10 @@ def analyzeRank(selfname,record,mode):
             if(rankList[i] == ""):
                 selfRank -= 1
                 if(selfRank == 0):
-                    rankList[i] = selfname
+                    rankList[i] = selfID
     #print(rankList)
-    return (rankList.index(selfname)+1)
+    return (rankList.index(selfID)+1)
 
-
-
-    """
-    for item in record["players"]:
-        if item["nickname"] == selfname:
-            selfgrade = item["gradingScore"]
-            selfplayer = item
-            break
-    if((selfplayer["level"]/100)%10 == 7):
-        if(mode == 4):
-            if((selfgrade == 100) or (selfgrade == 60) or (selfgrade == 50) or (selfgrade == 30)):
-                return 1
-            elif((selfgrade == 40) or (selfgrade == 20) or (selfgrade == 10)):
-                return 2
-            elif((selfgrade == -40) or (selfgrade == -20) or (selfgrade == -10)):
-                return 3
-            else:
-                return 4
-        else:
-            if((selfgrade == 100) or (selfgrade == 60) or (selfgrade == 50) or (selfgrade == 30)):
-                return 1
-            elif((selfgrade == 0)):
-                return 2
-            else:
-                return 3
-    rank = 1
-    for item in record["players"]:
-        if item["nickname"] == selfname:
-            continue
-        else:
-            if(item["gradingScore"] > selfgrade):
-                rank += 1
-    return rank
-    """
 
 def searchQueHun2(name,mode = 4):
     table = []
@@ -317,12 +283,11 @@ def searchQueHun2(name,mode = 4):
     res_recent = json.loads(r_recent.text)
     record_len = len(res_recent)
 
-    #isHunTian = (int(level["id"]/100)%10 == 7)
 
     if(record_len >= 10):
         record_len = 10
     for i in range(0,record_len):
-        recent_rank += str(analyzeRank(name,res_recent[i],mode))
+        recent_rank += str(analyzeRank(id,res_recent[i],mode))
 
 
     res += "记录等级: " + ranktable[str(level["id"])] + " "
