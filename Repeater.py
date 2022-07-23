@@ -170,7 +170,7 @@ def Repeater():
         return res.strip() if res else self.getReply("contacts_failed")
     """
 
-    @bot.onCommand('查雀魂|查四麻')
+    @bot.onCommand(r'\b查雀魂\b|\b查四麻\b')
     async def searchQueHun(self):
         #return "功能正在维护中,明天再来吧~"
         name = (self.msg)[5:]
@@ -179,7 +179,7 @@ def Repeater():
         res = majsoul2.searchQueHun2(name,4)
         return res
     
-    @bot.onCommand('查三麻')
+    @bot.onCommand(r'\b查三麻\b')
     async def searchQueHunThree(self):
         #return "功能正在维护中,明天再来吧~"
         name = (self.msg)[5:]
@@ -188,7 +188,7 @@ def Repeater():
         res = majsoul2.searchQueHun2(name,3)
         return res
 
-    @bot.onCommand('查天凤')
+    @bot.onCommand(r'\b查天凤\b')
     async def searchTenhou(self):
         name = (self.msg)[5:]
         if (name == ''):
