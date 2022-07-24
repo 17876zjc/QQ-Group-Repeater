@@ -247,13 +247,21 @@ def searchQueHun2(name,mode = 4):
     maxpt = int(rankptMax[str(level["id"])])
     if(int(level["id"]/100)%10 == 7):
         maxpt = maxpt * 100
-    if(level["score"] + level["delta"] >= maxpt):
-        level["id"] += 1
-        if(level["id"] % 10 == 4):
-            level["id"] -= 3
-            level["id"] += 100
-            if(int(level["id"]/100) % 10 == 6):
+    if((level["score"] + level["delta"] >= maxpt) or (level["score"] + level["delta"] < 0) ):
+        if(level["score"] + level["delta"] >= maxpt):
+            level["id"] += 1
+            if(level["id"] % 10 == 4):
+                level["id"] -= 3
                 level["id"] += 100
+                if(int(level["id"]/100) % 10 == 6):
+                    level["id"] += 100
+        elif (level["score"] + level["delta"] < 0):
+            level["id"] -= 1
+            if(level["id"] % 10 == 0):
+                level["id"] += 3
+                level["id"] -= 100
+                if(int(level["id"]/100) % 10 == 6):
+                    level["id"] -= 100
 
         if(int(level["id"]/100) % 10 == 7):
             level["score"] = 1000
