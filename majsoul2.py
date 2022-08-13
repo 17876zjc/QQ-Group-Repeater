@@ -85,7 +85,10 @@ def getid(name,mode = 4):
     tar = urlquery.replace("name", name)
     if (mode == 3):
         tar = tar.replace("pl4","pl3")
-    r = requests.get(tar)
+    try:
+        r = requests.get(tar,timeout=5)
+    except Exception as e:
+        return [None,None,None]
     res = json.loads(r.text)
 
     if len(res) == 0:
@@ -180,7 +183,9 @@ def searchQueHun2(name,mode = 4):
                     return ("输入的场次 "+test+" 找不到呢~")
     
     [name,id,level] = getid(name,mode)
-    if(id == None):
+    if(name == None):
+        return ("请求超时。我查的根本不差, 一定是波~")
+    elif(id == None):
         return "没有查到呢~"
 
     [modes,maxlevel] = getmodes(id,mode)
