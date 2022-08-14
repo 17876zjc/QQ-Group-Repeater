@@ -221,6 +221,7 @@ def getinfo(name):
     if "4" in res1:
         ans = ans+"\n段位排名: "+str(res1['4']['graderank'])+" 名"
 
+    ans = ans + "\n\n        : ------->最新"
     ans = ans + "\n\n最近战绩: ["+recentrank[::-1]+"]" 
 
     gamenum = position[0]+position[1]+position[2]+position[3]
