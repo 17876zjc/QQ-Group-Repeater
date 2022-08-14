@@ -461,6 +461,7 @@ def Repeater():
                  or(re.search("开启权限",self.msg))
                  or(re.search("关注列表",self.msg))
                  or(re.search("取关",self.msg))
+                 or(re.search(r'CQ:reply'))
                  )):
                 return random.choice(Bot.FIXED_REPLY_DICT['AT'])
 
