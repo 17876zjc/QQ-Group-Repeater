@@ -116,8 +116,8 @@ def sche():
     print("Runnig Sche")
     cron  = CronTab(user = True)
     cron.remove_all()
-    job1 = cron.new(command = 'sudo python3 ~/QQ/QQ-Group-Repeater/dailysche.py',comment = 'send test')
-    job1.setall('0 20 * * *')
+    #job1 = cron.new(command = 'sudo python3 ~/QQ/QQ-Group-Repeater/dailysche.py',comment = 'send test')
+    #job1.setall('0 20 * * *')
 
     #job2 = cron.new(command = 'sudo python ~/QQ/QQ-Group-Repeater/dailysche.py',comment = 'send test')
     #job2.setall('0 8 * * *')
