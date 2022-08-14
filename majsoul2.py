@@ -319,7 +319,7 @@ def searchQueHun2(name,mode = 4):
     
     res += "对局场数: " + str(res1["count"]) + "场\n\n"
 
-    res += "最近战绩: [" + recent_rank +"]\n\n" 
+    res += "最近战绩: [" + recent_rank[::-1] +"]\n\n" 
 
     res += "平均顺位: " + str(round(res1["avg_rank"],3)) + "\n"
     res += "一位率:   " + str(round(res1["rank_rates"][0]*100,2)) + "%\n"
