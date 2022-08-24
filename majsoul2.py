@@ -317,9 +317,9 @@ def searchQueHun2(name,mode = 4):
         res += str(int(maxlevel["score"] + maxlevel["delta"])) + "/" 
     res += rankptMax[str(maxlevel["id"])] + " pt\n"
     
-    res += "对局场数: " + str(res1["count"]) + "场\n\n"
+    res += "对局场数: " + str(res1["count"]) + "场\n"
 
-    res += "        : ------->最新\n\n"
+    res += "                --------->最新\n"
     res += "最近战绩: [" + recent_rank[::-1] +"]\n\n" 
 
     res += "平均顺位: " + str(round(res1["avg_rank"],3)) + "\n"

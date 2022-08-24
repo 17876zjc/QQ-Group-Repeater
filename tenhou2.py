@@ -1,11 +1,11 @@
 from numpy import double
-
-from sympy import false, true
+#from sympy import false, true
 from util import load_json
 import requests
 import json
 import time
 import urllib.parse
+from math import floor
 
 url = "https://nodocchi.moe/api/listuser.php?name="
 urlrank = "https://nodocchi.moe/s/ugr/***.js"
@@ -54,6 +54,8 @@ ptchange = {
     }
 }
 
+tablech = ["特南","特东","凤南","凤东"]
+
 def getRank(list,name):
     currank = currpt = 0
     lasttime = thistime =  0
@@ -78,20 +80,20 @@ def getRank(list,name):
                 if double(i['player'+str(j)+'ptr']) > pt:
                     rank = rank+1
             ptDelta = 0
-            flag = true
+            flag = True
             if(lv == 0 and len_ == 1):
                 t = time.localtime(thistime)
                 if t.tm_year<=2017:
                     if t.tm_mon<=10:
                         if t.tm_mday <= 22 or (t.tm_mday == 23 and t.tm_hour <23):
-                            flag = false
+                            flag = False
                             if rank == 1:
                                 ptDelta = 30
                             elif rank == 2 or ptDelta == 3:
                                 ptDelta = 0
                             else:
                                 ptDelta = 0 - levelmap[currank]['losescore'][len_-1]
-            if flag == true:
+            if flag == True:
                 if rank == 4:
                     ptDelta = 0 - levelmap[currank]['losescore'][len_-1]
                 else:
@@ -112,7 +114,47 @@ def getRank(list,name):
     return (currank,currpt)
 
 
+def gettable(name):
+    #Return in [name,table]
+    #if return [None,None]: Table name not available
+    #if return [_,None]: All tables
+    #if return [_,_]: Defined table
+    if not name.find(" ") > 0:
+        return [name,None]
+    else:
+        name2 = name[:name.find(" ")]
+        table = name[name.find(" ")+1:]
+
+        if table not in tablech:
+            return [None,None]
+        else:
+            return [name2,table]
+
 def getinfo(name):
+    [name2,table] = gettable(name)
+    if(name2 == None):
+        res = "搜索的桌次<"+name[name.find(" ")+1:]+">找不到呢~\n可选项:"
+        for i in tablech:
+            res = res + "<"+i+">"
+        return res
+    name = name2
+
+    targetPLevel = -1
+    targetPLength = -1
+    if table == "特南":
+        targetPLevel = 2
+        targetPLength = 2
+    elif table == "特东":
+        targetPLevel = 2
+        targetPLength = 1
+    elif table == "凤南":
+        targetPLevel = 3
+        targetPLength = 2
+    elif table == "凤东":
+        targetPLevel = 3
+        targetPLength = 1
+
+
     maxrank = currank = 0
     maxpt = currpt = levelmap[currank]['initscore']
     position = [0,0,0,0]
@@ -144,21 +186,23 @@ def getinfo(name):
             for j in range(1,5):
                 if double(i['player'+str(j)+'ptr']) > pt:
                     rank = rank+1
-            position[rank-1] = position[rank-1] + 1
+            
+            if((targetPLength == -1 and targetPLength == -1) or(targetPLength ==len_ and targetPLevel == lv)):
+                position[rank-1] = position[rank-1] + 1
             ptDelta = 0
-            flag = true
+            flag = True
             if(lv == 0 and len_ == 1):
                 t = time.localtime(thistime)
                 #print(t)
                 if thistime < 1508857200 :
-                    flag = false
+                    flag = False
                     if rank == 1:
                         ptDelta = 30
                     elif rank == 2 or rank == 3:
                         ptDelta = 0
                     else:
                         ptDelta = 0 - levelmap[currank]['losescore'][len_-1]
-            if flag == true:
+            if flag == True:
                 if rank == 4:
                     ptDelta = 0 - levelmap[currank]['losescore'][len_-1]
                 else:
@@ -222,14 +266,52 @@ def getinfo(name):
         ans = ans+"\n段位排名: "+str(res1['4']['graderank'])+" 名"
 
     ans = ans + "\n                --------->最新"
-    ans = ans + "\n最近战绩: ["+recentrank[::-1]+"]" 
+    ans = ans + "\n最近战绩: ["+recentrank[::-1]+"]\n\n"  
+
+    ans = ans + "查询范围: "
+    if table == None:
+        ans +="全部对局"
+    else:
+        ans += "<"+table+">"
 
     gamenum = position[0]+position[1]+position[2]+position[3]
-    ans = ans+"\n\n总计对战: "+str(gamenum)+ " 场\n"
+
+    if gamenum == 0:
+        ans +="\n该玩家在<"+table+">没有记录的对局！"
+        return ans
+
+
+    ans = ans+"\n总计对战: "+str(gamenum)+ " 场\n"
     ans = ans+"一位: "+str(position[0])+ " 场\t"+ str(round(float(position[0]/gamenum)*100,2))+"%\n"
     ans = ans+"二位: "+str(position[1])+ " 场\t"+ str(round(float(position[1]/gamenum)*100,2))+"%\n"
     ans = ans+"三位: "+str(position[2])+ " 场\t"+ str(round(float(position[2]/gamenum)*100,2))+"%\n"
     ans = ans+"四位: "+str(position[3])+ " 场\t"+ str(round(float(position[3]/gamenum)*100,2))+"%\n"
     ans = ans+"平均顺位: "+str(round((position[0]*1+position[1]*2+position[2]*3+position[3]*4)/gamenum,3))
+
+    if(table != None):
+        ans+="\n\n推定<"+table+">安定段位: "
+        if(position[3]==0):
+            if(position[0]==0 and position[1]==0):
+                ans+="新人"
+            else:
+                ans+="天鳳位+∞"
+        else:
+            if(table == "特南"):
+                [coeff1,coeff2,coeff3] = [75,30,15]
+            elif(table == "特东"):
+                [coeff1,coeff2,coeff3] = [50,20,10]
+            elif(table == "凤南"):
+                [coeff1,coeff2,coeff3] = [90,45,15]
+            elif(table == "凤东"):
+                [coeff1,coeff2,coeff3] = [60,30,10]
+            stablerank = (position[0]*coeff1+position[1]*coeff2)/position[3]/coeff3-2
+
+            if(stablerank >= 1 and stablerank <11):
+                ans+=levelmap[floor(stablerank)+9]['name']+"+"+('%.4f'%(stablerank-floor(stablerank)))
+            elif stablerank >=11:
+                ans+="天鳳位+"+('%.4f'%(stablerank-11))
+            else:
+                ans+="新人"
+
 
     return ans
