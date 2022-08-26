@@ -204,9 +204,9 @@ def searchQueHun2(name,mode = 4):
             error += ("["+i+"]的对战!\n试一试对这位玩家搜索")
             for k in modes:
                     if mode == 4:
-                        error += (" [" + tablech[table4.index(k)] + "]")
+                        error += (" [" + tablech[table4.index(str(k))] + "]")
                     else:
-                        error += (" [" + tablech[table3.index(k)] + "]")
+                        error += (" [" + tablech[table3.index(str(k))] + "]")
             return error
 
     if mode == 3:
