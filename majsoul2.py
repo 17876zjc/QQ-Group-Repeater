@@ -102,7 +102,10 @@ def getmodes(id,mode = 4):
     else:
         tar = url4_1.replace("ID",str(id))
     tar = tar.replace("TIME",str(int(time.time())))
-    r = requests.get(tar)
+    try:
+        r = requests.get(tar,timeout=5)
+    except Exception as e:
+        return [None,None]
     res = json.loads(r.text)
     return [res["played_modes"],res["max_level"]]
 
@@ -189,6 +192,8 @@ def searchQueHun2(name,mode = 4):
         return "没有查到呢~"
 
     [modes,maxlevel] = getmodes(id,mode)
+    if modes == None and maxlevel == None:
+        return ("请求超时。我查的根本不差, 一定是波~")
     for i in table:
         if ((mode == 4) and (int(table4[tablech.index(i)]) not in modes)) or ((mode == 3) and (int(table3[tablech.index(i)]) not in modes)):
             error = "没有找到在"
@@ -233,7 +238,10 @@ def searchQueHun2(name,mode = 4):
         tar = tar.replace("TIME",str(int(time.time())))
         tar = tar.replace("16.12.9.15.11.8",modethis)
 
-    r = requests.get(tar)
+    try:
+        r = requests.get(tar,timeout=5)
+    except Exception as e:
+        return ("请求超时。我查的根本不差, 一定是波~")
     res1 = json.loads(r.text)
 
     if(mode == 3):
@@ -317,9 +325,9 @@ def searchQueHun2(name,mode = 4):
         res += str(int(maxlevel["score"] + maxlevel["delta"])) + "/" 
     res += rankptMax[str(maxlevel["id"])] + " pt\n"
     
-    res += "对局场数: " + str(res1["count"]) + "场\n"
+    res += "对局场数: " + str(res1["count"]) + "场\n\n"
 
-    res += "                --------->最新\n"
+    res += "        : ------->最新\n\n"
     res += "最近战绩: [" + recent_rank[::-1] +"]\n\n" 
 
     res += "平均顺位: " + str(round(res1["avg_rank"],3)) + "\n"
