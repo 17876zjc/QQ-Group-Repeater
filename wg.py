@@ -14,6 +14,7 @@ def wgadd(id,group):
         return "没有找到该玩家!"
     with open("wglist.json",'r',encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
+        load_f.close()
     for i in load_dict:
         if(i['id'] == id ):
             if (group in i['groupid']):
@@ -22,11 +23,13 @@ def wgadd(id,group):
                 i['groupid'].append(group)
                 with open("wglist.json",'w',encoding='utf-8') as f:
                     json.dump(load_dict, f,ensure_ascii=False)
+                    f.close()
                 return "新增关注["+id+"]"
     with open("wglist.json",'w',encoding='utf-8') as f:
         newadd = {'id': id,'groupid':[group], 'currgame':'', "recentgame": []}
         load_dict.append(newadd)
         json.dump(load_dict, f,ensure_ascii=False)
+        f.close()
         return "新增关注["+id+"]"
 
 def wgdel(id,group):
@@ -38,6 +41,7 @@ def wgdel(id,group):
         return "没有找到该玩家!"
     with open("wglist.json",'r',encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
+        load_f.close()
     for i in load_dict:
         if(i['id'] == id ):
             if (group in i['groupid']):
@@ -54,6 +58,7 @@ def wgdel(id,group):
 def wglist(group):
     with open("wglist.json",'r',encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
+        load_f.close()
     ans = "本群关注:"
     for i in load_dict:
         if (group in i['groupid']):
@@ -67,6 +72,7 @@ def wgsync():
     print("On syncing TH score...")
     with open("wglist.json",'r',encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
+        load_f.close()
     
     rwg = requests.get(wgurl)
     reswg = json.loads(rwg.text)
@@ -78,6 +84,7 @@ def wgsync():
                         k["recentgame"].append(i["info"]["starttime"])
 
     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
-                json.dump(load_dict, f,ensure_ascii=False)
+        json.dump(load_dict, f,ensure_ascii=False)
+        f.close()
     print("Sync TH score complete.")
     
