@@ -1,3 +1,4 @@
+from formatter import NullFormatter
 from numpy import double
 #from sympy import false, true
 from util import load_json
@@ -276,7 +277,7 @@ def getinfo(name):
 
     gamenum = position[0]+position[1]+position[2]+position[3]
 
-    if gamenum == 0:
+    if gamenum == 0 and table != None:
         ans +="\n该玩家在<"+table+">没有记录的对局！"
         return ans
 
