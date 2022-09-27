@@ -280,6 +280,9 @@ def getinfo(name):
     if gamenum == 0 and table != None:
         ans +="\n该玩家在<"+table+">没有记录的对局！"
         return ans
+    elif gamenum == 0 and table == None:
+        ans += "\n该玩家在段位场没有记录的对局! "
+        return ans
 
 
     ans = ans+"\n总计对战: "+str(gamenum)+ " 场\n"
