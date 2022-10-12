@@ -22,11 +22,11 @@ msgRank =(
         ["被安排了一个四位, 一定是角田的阴谋","被安排了一个四位, 实在是太苦了","打的根本不差,显然是波","被安排了一个四位,实在是时运不济"]]])
 
 async def thResSche():
+    time.sleep(60)
     print("In TH res fetching")
 
     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'r',encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
-        load_f.close()
 
     for i in load_dict:
         name = i["id"]
@@ -45,7 +45,6 @@ async def thResSche():
                 i["recentgame"].remove(int(lastmatch["starttime"])+300)
                 with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                     json.dump(load_dict, f,ensure_ascii=False)
-                    f.close()
                 msg = ""
                 gamemode = int(lastmatch["playernum"])
                 rank = 0
