@@ -37,7 +37,7 @@ async def wgSche():
                     if (i["info"]["starttime"] not in k["recentgame"]):
                         k["recentgame"].append(i["info"]["starttime"])
                     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
-                        json.dump(load_dict, f,ensure_ascii=False)
+                        f.write(json.dumps(load_dict,ensure_ascii=False))
                         f.close()
                     msg = k['id']+" 正在乱杀, 快来围观:\n"
                     if (i["info"]["playernum"] == 4):
