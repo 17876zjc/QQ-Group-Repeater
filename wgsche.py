@@ -13,8 +13,9 @@ url = "https://nodocchi.moe/s/wg.js"
 wgurl = "http://tenhou.net/0/?wg="
 
 async def wgSche():
-    print("In wg checking")
-
+    #print("In wg checking")
+    dt = time.strftime('%Y:%m:%d %H:%M:%S', time.localtime(int(time.time())))
+    print("===="+str(dt)+"====")
     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'r',encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
         load_f.close()
@@ -29,6 +30,7 @@ async def wgSche():
             count = count+1
             for k in load_dict:
                 if (k['id'] not in checkedname) and (k['id'] == j['name']) and (i["info"]["id"] != k["currgame"]):
+                    print("Player: "+ str(k['id']) + "; info-id: "+str(i["info"]["id"]) + "; currgame: " + str(k["currgame"]))
                     checkedname.append(k['id'])
                     k["currgame"] = i["info"]["id"]
 
