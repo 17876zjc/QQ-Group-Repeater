@@ -18,7 +18,6 @@ async def wgSche():
     print("===="+str(dt)+"====")
     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'r',encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
-        load_f.close()
 
     r = requests.get(url)
     res = json.loads(r.text)
@@ -36,9 +35,16 @@ async def wgSche():
 
                     if (i["info"]["starttime"] not in k["recentgame"]):
                         k["recentgame"].append(i["info"]["starttime"])
+                    print("++++++++++++++++++")
+                    print(load_dict)   
+
                     with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
                         f.write(json.dumps(load_dict,ensure_ascii=False))
-                        f.close()
+                    with open("/root/QQ/QQ-Group-Repeater/wglist.json",'r',encoding='utf-8') as load_f2:
+                        load_dict2 = json.load(load_f2)
+                        print("++++++++++++++++++")
+                        print(load_dict2)
+
                     msg = k['id']+" 正在乱杀, 快来围观:\n"
                     if (i["info"]["playernum"] == 4):
                         msg = msg + "四"
