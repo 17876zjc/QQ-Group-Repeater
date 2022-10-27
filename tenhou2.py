@@ -171,7 +171,7 @@ def getinfo(name):
             lasttime = thistime = int(i['starttime'])
         else:
             thistime = int(i['starttime'])
-            if (thistime-lasttime) > 60*60*24*180 and currank < 16:
+            if (thistime-lasttime) > 60*60*24*181 and currank < 16:
                 maxrank = maxpt = currank = currpt = 0
                 position = [0,0,0,0]
             lasttime = thistime
