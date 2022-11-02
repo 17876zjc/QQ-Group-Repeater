@@ -262,14 +262,14 @@ def Repeater():
         d2 = datetime(2020, 5, 11)
         return f"今天 {d1.strftime('%m / %d')} 第 {(d1 - d2).days // 7 + 1} 周"
     """
-    @bot.onCommand(r'猫图|猫猫')
+    @bot.onCommand(r'\b猫图\b|\b猫猫\b')
     async def replyKitty(self):
         url = "https://api.thecatapi.com/v1/images/search"
         tmpJson = json.loads(await aioGet(url))
         imgUrl = tmpJson[0]["url"]
         return f"[CQ:image,file={imgUrl}]"
 
-    @bot.onCommand(r'狗图|狗狗')
+    @bot.onCommand(r'\b狗图\b|\b狗狗\b')
     async def replyKitty(self):
         url = "https://dog.ceo/api/breeds/image/random"
         tmpJson = json.loads(await aioGet(url))
