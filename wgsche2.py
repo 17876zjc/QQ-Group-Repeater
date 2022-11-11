@@ -1,14 +1,10 @@
-import coolq
-import asyncio
 
 import json
-from Repeater import aioGet
-from Bot import Bot
-import wg
+
 import time
-import requests
+
 from requests_html import HTMLSession
-from threading import Thread
+
 import base64
 import datetime
 import wglive

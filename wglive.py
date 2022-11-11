@@ -6,8 +6,6 @@ import random
 import re
 
 import urllib.parse
-from Repeater import aioGet
-from Bot import Bot
 import coolq
 import asyncio
 

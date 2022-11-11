@@ -2,9 +2,7 @@ import coolq
 import asyncio
 
 import json
-from Repeater import aioGet
-from Bot import Bot
-import wg
+
 import time
 import requests
 
