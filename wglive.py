@@ -261,8 +261,8 @@ class TenhouCLient:
         messages = messages.split("\x00")
         # last message always is empty after split, so let's exclude it
         messages = messages[0:-1]
-        #for message in messages:
-        #    print("Received : " + message)
+        for message in messages:
+            print("[Received] : " + message)
         return messages
     
     def _send_keep_alive_ping(self):
