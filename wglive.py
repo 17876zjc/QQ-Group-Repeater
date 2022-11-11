@@ -360,10 +360,10 @@ class TenhouCLient:
         self.honba = int(t[1])
         # Point
         t = re.findall(r'ten=".*?"',message)[0][5:-1].split(",")
-        self.ten[0] = int(t[0])
-        self.ten[1] = int(t[1])
-        self.ten[2] = int(t[2])
-        self.ten[3] = int(t[3])
+        self.ten[0] = int(t[0])*100
+        self.ten[1] = int(t[1])*100
+        self.ten[2] = int(t[2])*100
+        self.ten[3] = int(t[3])*100
         pass
 
     def analyOneTile(self,tile:int):

@@ -110,7 +110,11 @@ class WgScheduler():
                         k['currgame'] = gtime
                         #IF GAME not in WG: Add this game first
                         if WGtag not in self.AllWgGames():
-                            self.StartWG(WGtag,str(t_h)+":"+str(t_m),game[3])
+                            if t_m < 10:
+                                stime = str(t_h)+":0"+str(t_m)
+                            else:
+                                stime = str(t_h)+":"+str(t_m)
+                            self.StartWG(WGtag,stime,game[3])
                         #Add this group and player
                         ind = self.ClientIndex(WGtag)
                         print("INDEX: "+str(ind))
