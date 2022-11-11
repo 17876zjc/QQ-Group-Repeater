@@ -40,14 +40,14 @@ class WgScheduler():
                 return i
         return -1
 
-    def AllWgGames(self) -> list[str]:
-        res : list[str] = []
+    def AllWgGames(self) -> list:
+        res = []
         for i in self.wgClient:
             res.append(str(i.WG))
         return res
 
-    def AllHashTags(self) -> list[str]:
-        res : list[str] = []
+    def AllHashTags(self) -> list:
+        res = []
         for i in self.wgClient:
             res.append(str(i.hashTag))
         return res
