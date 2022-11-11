@@ -118,7 +118,8 @@ class WgScheduler():
                             for gid in k['groupid']:
                                 self.wgClient[self.ClientIndex(WGtag)].addQQ(gid,k['id'])
                 i += 3
-        # EndCheck        
+        # EndCheck
+        print("Writing Back... to wglist.json")
         with open("/root/QQ/QQ-Group-Repeater/wglist.json",'w',encoding='utf-8') as f:
             f.write(json.dumps(load_dict,ensure_ascii=False))
     

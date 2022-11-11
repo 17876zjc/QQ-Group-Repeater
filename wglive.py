@@ -214,7 +214,7 @@ class TenhouCLient:
 
     def reportGameDetail(self,group_id):
         res = ""
-        res = res +"#"+self.hashTag+" "+self.getGameType+" "
+        res = res +"#"+self.hashTag+" "+self.getGameType()+" "
         if (self.ten == [0,0,0,0]):
             res += "【等待中】\n"
             for i in self.pname:
@@ -455,7 +455,7 @@ class TenhouCLient:
         
 
     def ReportAgari(self,message): # <AGARI ... >
-        res = ""
+        res = "#"+self.hashTag+"\n"
         # Kyoku, Honba
         res += (KyokuName[self.kyoku] + " " + str(self.honba) + "本场 ")
         # Players
