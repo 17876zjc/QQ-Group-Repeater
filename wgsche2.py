@@ -33,7 +33,7 @@ class WgScheduler():
         if hashTag not in self.AllHashTags():
             return False
         else:
-            return self.wgClient[self.AllHashTags().index(hashTag[1:])].hasGroup(group_id)
+            return self.wgClient[self.AllHashTags().index(hashTag)].hasGroup(group_id)
 
     def ClientIndex(self,WG:str) -> int:
         for i in range(len(self.wgClient)):
@@ -105,7 +105,8 @@ class WgScheduler():
                 #generate pname
                 name = base64.b64decode(game[i]).decode()
                 for k in load_dict:
-                    if((k['id'] not in checkedname) and (k['id'] == name) and gtime > k['currgame']): 
+                    if((k['id'] not in checkedname) and (k['id'] == name) and gtime > k['currgame']):
+                        print("Handling player "+k['id']) 
                         k['currgame'] = gtime
                         #IF GAME not in WG: Add this game first
                         if WGtag not in self.AllWgGames():
