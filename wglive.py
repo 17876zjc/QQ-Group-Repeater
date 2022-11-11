@@ -191,7 +191,8 @@ class TenhouCLient:
         async def sendMsg(group_id,msg):
             await bot.send({'group_id': group_id}, message=msg)
         print("READY TO SEND MESSAGE: " +msg)
-        loop = asyncio.get_event_loop()
+        loop =  asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         loop.run_until_complete(sendMsg(group_id,msg))
         loop.close()
 
