@@ -1,6 +1,7 @@
 import json
 import urllib.parse
 import requests
+import wgmanager
 
 
 url = "https://nodocchi.moe/api/listuser.php?name="
@@ -22,10 +23,9 @@ def wgadd(id,group):
                 i['groupid'].append(group)
                 with open("wglist.json",'w',encoding='utf-8') as f:
                     json.dump(load_dict, f,ensure_ascii=False)
-                    f.close()
                 return "新增关注["+id+"]"
     with open("wglist.json",'w',encoding='utf-8') as f:
-        newadd = {'id': id,'groupid':[group], 'currgame':'', "recentgame": []}
+        newadd = {'id': id,'groupid':[group], 'currgame':0}
         load_dict.append(newadd)
         json.dump(load_dict, f,ensure_ascii=False)
         return "新增关注["+id+"]"
@@ -51,6 +51,27 @@ def wgdel(id,group):
             else:
                 return("啊这,好像还没有关注["+id+"]呢")
     return("啊这,好像还没有关注["+id+"]呢")
+
+def wginfo(group,hashtag): #hashtag: #xxxx
+    if not wgmanager.wgmanager.Scheduler.HasHashTag(group,hashtag[1:]):
+        return "没有找到对战"+hashtag
+    else:
+        wgmanager.wgmanager.Scheduler.wgClient[wgmanager.wgmanager.Scheduler.AllHashTags().index(hashtag[1:])].reportGameDetail(group)
+    return "" 
+
+def wg(group,hashtag): #hashtag: #xxxx
+    if not wgmanager.wgmanager.Scheduler.HasHashTag(group,hashtag[1:]):
+        return "没有找到对战"+hashtag
+    else:
+        wgmanager.wgmanager.Scheduler.wgClient[wgmanager.wgmanager.Scheduler.AllHashTags().index(hashtag[1:])].addDetail(group)
+        return "开始围观"+hashtag 
+
+def wgminus(group,hashtag):
+    if not wgmanager.wgmanager.Scheduler.HasHashTag(group,hashtag[1:]):
+        return "没有找到对战"+hashtag
+    else:
+        wgmanager.wgmanager.Scheduler.wgClient[wgmanager.wgmanager.Scheduler.AllHashTags().index(hashtag[1:])].rmDetail(group)
+        return "取消围观"+hashtag
 
 def wglist(group):
     with open("wglist.json",'r',encoding='utf-8') as load_f:

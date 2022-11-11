@@ -170,27 +170,32 @@ def Repeater():
         return res.strip() if res else self.getReply("contacts_failed")
     """
 
-    @bot.onCommand(r'\b查雀魂\b|\b查四麻\b')
+    @bot.onCommand(r'\b查雀魂\b|\b查四麻\b|\bmspt\b|\bmspt4\b')
     async def searchQueHun(self):
         #return "功能正在维护中,明天再来吧~"
-        name = (self.msg)[5:]
+        name = str((self.msg)).strip("#查雀魂 ")
+        name = name.strip("#mspt4 ")
+        name = name.strip("#查四麻 ")
+        name = name.strip("#mspt ")
         if (name == ''):
             return "你叫什么名字?"
         res = majsoul2.searchQueHun2(name,4)
         return res
     
-    @bot.onCommand(r'\b查三麻\b')
+    @bot.onCommand(r'\b查三麻\b|\bmspt3\b')
     async def searchQueHunThree(self):
         #return "功能正在维护中,明天再来吧~"
-        name = (self.msg)[5:]
+        name = str((self.msg)).strip("#查三麻 ")
+        name = name.strip("#mspt3 ")
         if (name == ''):
             return "你叫什么名字?"
         res = majsoul2.searchQueHun2(name,3)
         return res
 
-    @bot.onCommand(r'\b查天凤\b')
+    @bot.onCommand(r'\b查天凤\b|\bthpt\b')
     async def searchTenhou(self):
-        name = (self.msg)[5:]
+        name = str((self.msg)).strip("#查天凤 ")
+        name = name.strip("#thpt ")
         if (name == ''):
             return "你叫什么名字?"
         #print(name)
@@ -203,22 +208,48 @@ def Repeater():
         res = spider.getapic()
         return f"[CQ:image,file={str(res)}]"
 
-    @bot.onCommand(r'\b围观\b')
+    @bot.onCommand(r'\bwgadd\b')
     async def wgadd(self):
-        id = (self.msg)[4:]
+        id = str((self.msg)).strip("#wgadd ")
         res = wg.wgadd(id,self.fromGroup)
         return res
     
-    @bot.onCommand(r'\b取关\b')
-    async def wgadd(self):
-        id = (self.msg)[4:]
+    @bot.onCommand(r'\bwgdel\b')
+    async def wgdel(self):
+        id = str((self.msg)).strip("#wgdel ")
         res = wg.wgdel(id,self.fromGroup)
         return res
 
-    @bot.onCommand(r'\b围观列表\b')
-    async def wgadd(self):
+    @bot.onCommand(r'\bwglist\b')
+    async def wglist(self):
         res = wg.wglist(self.fromGroup)
         return res
+
+    @bot.onCommand(r'\bwg\b')
+    async def wgp(self):
+        htag = str((self.msg)).strip("#wg ")
+        if htag[0] != "#":
+            return "无效的观战码"
+        else:
+            return wg.wg(self.fromGroup,htag)
+    
+    @bot.onCommand(r'\bwg-\b')
+    async def wgd(self):
+        htag = str((self.msg)).strip("#wg ")
+        if htag[0] != "#":
+            return "无效的观战码"
+        else:
+            return wg.wgminus(self.fromGroup,htag)
+
+    @bot.onCommand(r'\bwginfo\b')
+    async def wginfo(self):
+        htag = str((self.msg)).strip("#wginfo ")
+        if htag[0] != "#":
+            return "无效的观战码"
+        else:
+            res = wg.wginfo(self.fromGroup,htag)
+            if res != "":
+                return res
 
     @bot.on(r'呆呆|呆呆兽|呆哥')
     async def daidai(self):

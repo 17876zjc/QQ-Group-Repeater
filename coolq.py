@@ -18,6 +18,7 @@ from queue import Queue
 from pytz import timezone
 from crontab import CronTab
 import wg
+import wgmanager
 
 used_timezone=timezone('Asia/Shanghai')
 
@@ -136,6 +137,17 @@ def sche():
 
 
 if __name__ == '__main__':
-    wg.wgsync()
-    sche()
-    bot.run(host='0.0.0.0', port=8090)
+    #wg.wgsync()
+    #sche()
+    try:
+        wgmanager.wgmanager = wgmanager.WgManager()
+        bot.run(host='0.0.0.0', port=8090)
+        print("Ready to end.")
+        wgmanager.wgmanager.kill()
+    except KeyboardInterrupt:
+        print("KeyboardInterrupt")
+        wgmanager.wgmanager.kill()
+    except Exception as e:
+        print("Exception")
+        print(str(e))
+        wgmanager.wgmanager.kill()
