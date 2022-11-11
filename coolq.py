@@ -140,15 +140,15 @@ if __name__ == '__main__':
     #wg.wgsync()
     #sche()
     try:
-        wgmanager.wgmanager = wgmanager.WgManager()
+        #wgmanager.wgmanager = wgmanager.WgManager()
         
         bot.run(host='0.0.0.0', port=8090)
         print("Ready to end.")
-        wgmanager.wgmanager.kill()
+        #wgmanager.wgmanager.kill()
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
-        wgmanager.wgmanager.kill()
+        #wgmanager.wgmanager.kill()
     except Exception as e:
         print("Exception")
         print(str(e))
-        wgmanager.wgmanager.kill()
+        #wgmanager.wgmanager.kill()

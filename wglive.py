@@ -190,7 +190,6 @@ class TenhouCLient:
         return False
 
     def qqSendMsg(self,group_id,msg):
-
         async def sendMsg(group_id,msg):
             await bot.send({'group_id': group_id}, message=msg)
         print("READY TO SEND MESSAGE: " +msg)
@@ -468,7 +467,7 @@ class TenhouCLient:
         if (p1 == p2):
             res += "自摸"
         else:
-            res += ("荣 " + self.pname[p2])
+            res += ("荣和 " + self.pname[p2])
         point = (re.findall(r'ten=".*?"',message)[0][5:-1]).split(",")[1]
         res += (" "+point)
         if "owari" in message:
@@ -533,7 +532,7 @@ class TenhouCLient:
             self.ReportEndGame(re.findall(r'owari=".*?"',message)[0][7:-1].split(","))
 
     def ReportRyuukyoku(self,message): #<RYUUKYOKU ...>
-        res = ""
+        res = "#"+self.hashTag+"\n"
         # Kyoku, Honba
         res += (KyokuName[self.kyoku] + " " + str(self.honba) + "本场 ")
         # Ryuukyuku type
