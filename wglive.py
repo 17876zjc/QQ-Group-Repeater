@@ -10,6 +10,9 @@ import asyncio
 
 from bot_p import bot
 
+import nest_asyncio
+nest_asyncio.apply()
+
 msgRank =( 
         [[["轻松拿下一位, 真的太强了","轻松拿下一位, 全程乱杀","太强了轻松获得了一位"],
         ["精通避三, 避免了重大损失","获得一个二位, 深藏功与名"],
@@ -582,6 +585,8 @@ class TenhouCLient:
             self._random_sleep(1, 2)
             messages = self._get_multiple_messages()
 
+            if(self.is_wg):
+                self.sendGameStartMsg()
 
             for message in messages:
                 if(self.is_wg == False): #When waiting for wg start
@@ -594,7 +599,7 @@ class TenhouCLient:
                         self._random_sleep(1, 2)
                         self._send_message("<GOK />")
                 else: #Already in wg
-                    self.sendGameStartMsg()
+                    
                     if "<UN" in message: #Init player data
                         self.InitplayerData(re.findall(r'<UN .*?>',message)[0])
                     if "<AGARI" in message: #Agari
