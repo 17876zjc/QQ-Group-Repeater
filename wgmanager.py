@@ -16,7 +16,7 @@ class WgManager():
 
     def wgsche(self):
         while(self.isworking):
-            for i in range(self.timeInterval/5):
+            for i in range(int(self.timeInterval/5)):
                 if(self.isworking):
                     sleep(5)
                 else:
