@@ -76,6 +76,7 @@ async def handle_msg(context):
         print({"msg": context['message'], "ans": re})
         await bot.send({'group_id': groupId}, message=re) if (len(re) > 0) else 0
     except Exception as e:
+        print(str(e))
         print({"msg": context['message'], "ans": "ERROR"})
         logging.exception(e)
 
