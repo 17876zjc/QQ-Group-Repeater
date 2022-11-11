@@ -604,6 +604,7 @@ class TenhouCLient:
         self.end_game()
 
     def __init__(self,WG,hashTag,startTime,gametype) -> None:
+        print("生成新围观: "+str(WG)+" " + str(hashTag) + " " + str(startTime) + " " + str(gametype))
         self.WG = WG
         self.hashTag = hashTag
         self.startTime = startTime

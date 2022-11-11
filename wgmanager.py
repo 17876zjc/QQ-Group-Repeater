@@ -7,7 +7,7 @@ from time import sleep
 class WgManager():
     managerThread = None
     Scheduler : wgsche2.WgScheduler = None
-    timeInterval = 200 # seconds
+    timeInterval = 120 # seconds
     isworking = True
 
     def __del__(self):
@@ -16,13 +16,13 @@ class WgManager():
 
     def wgsche(self):
         while(self.isworking):
+            if(self.isworking):
+                self.Scheduler.wgSche2()
             for i in range(int(self.timeInterval/5)):
                 if(self.isworking):
                     sleep(5)
                 else:
                     break
-            if(self.isworking):
-                self.Scheduler.wgSche2()
 
     def kill(self):
         self.isworking = False

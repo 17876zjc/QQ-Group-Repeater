@@ -228,6 +228,7 @@ def Repeater():
     @bot.onCommand(r'\bwg\b')
     async def wgp(self):
         htag = str((self.msg)).strip("#wg ")
+        print(htag)
         if htag[0] != "#":
             return "无效的观战码"
         else:
