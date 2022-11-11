@@ -137,6 +137,8 @@ class TenhouCLient:
         if i[1] == '1':
             res += "速"
         
+        return res
+        
 
     def addQQ(self,group:int,pname:str):
         hasQQ = False
