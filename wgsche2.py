@@ -36,8 +36,8 @@ class WgScheduler():
             return self.wgClient[self.AllHashTags().index(hashTag[1:])].hasGroup(group_id)
 
     def ClientIndex(self,WG:str) -> int:
-        for i in self.wgClient:
-            if i.WG == WG:
+        for i in range(len(self.wgClient)):
+            if self.wgClient[i].WG == WG:
                 return i
         return -1
 
