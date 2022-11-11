@@ -17,7 +17,7 @@ from crontab import CronTab
 
 import wgmanager
 
-from bot_p import bot
+from bot_p import bot, init
 
 used_timezone=timezone('Asia/Shanghai')
 
@@ -30,7 +30,7 @@ logging.basicConfig(
                           'coolq.log'),
     filemode='w+')
 
-bot = CQHttp(api_root='http://127.0.0.1:5700/')
+#bot = CQHttp(api_root='http://127.0.0.1:5700/')
 
 GroupDict = dict()
 SETTINGS = load_json('settings.json')
@@ -140,6 +140,8 @@ if __name__ == '__main__':
     #sche()
     try:
         wgmanager.wgmanager = wgmanager.WgManager()
+        
+        init()
         bot.run(host='0.0.0.0', port=8090)
         print("Ready to end.")
         wgmanager.wgmanager.kill()
