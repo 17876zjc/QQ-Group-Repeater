@@ -23,6 +23,7 @@ def getTag() -> str:
     res = ""
     for i in range(4):
         res += getChar(random.randint(0,35))
+    return res
 
 class WgScheduler():
     #wgClient : list[wglive.TenhouCLient] = [] #List of all wgThreads
@@ -69,6 +70,7 @@ class WgScheduler():
         self.wgClient.append(wglive.TenhouCLient(WG,getTag(),startTime,gameType))
 
     def wgSche2(self):
+        print("Checking for new wg...")
         # Clear up
         self.ClearEndedClient()
         # Add new WG
