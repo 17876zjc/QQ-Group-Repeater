@@ -17,7 +17,7 @@ from crontab import CronTab
 
 import wgmanager
 
-from bot_p import bot, init
+from bot_p import bot
 
 used_timezone=timezone('Asia/Shanghai')
 
@@ -141,7 +141,6 @@ if __name__ == '__main__':
     try:
         wgmanager.wgmanager = wgmanager.WgManager()
         
-        init()
         bot.run(host='0.0.0.0', port=8090)
         print("Ready to end.")
         wgmanager.wgmanager.kill()
