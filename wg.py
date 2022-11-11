@@ -60,9 +60,11 @@ def wginfo(group,hashtag): #hashtag: #xxxx
     return "" 
 
 def wg(group,hashtag): #hashtag: #xxxx
+    print(hashtag)
     if not wgmanager.wgmanager.Scheduler.HasHashTag(group,hashtag[1:]):
         return "没有找到对战"+hashtag
     else:
+        print(hashtag)
         wgmanager.wgmanager.Scheduler.wgClient[wgmanager.wgmanager.Scheduler.AllHashTags().index(hashtag[1:])].addDetail(group)
         return "开始围观"+hashtag 
 
