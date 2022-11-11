@@ -9,6 +9,8 @@ import urllib.parse
 import coolq
 import asyncio
 
+from bot_p import bot
+
 msgRank =( 
         [[["轻松拿下一位, 真的太强了","轻松拿下一位, 全程乱杀","太强了轻松获得了一位"],
         ["精通避三, 避免了重大损失","获得一个二位, 深藏功与名"],
@@ -186,7 +188,7 @@ class TenhouCLient:
     def qqSendMsg(self,group_id,msg):
 
         async def sendMsg(group_id,msg):
-            await coolq.bot.send({'group_id': group_id}, message=msg)
+            await bot.send({'group_id': group_id}, message=msg)
 
         loop = asyncio.get_event_loop()
         loop.run_until_complete(sendMsg(group_id,msg))

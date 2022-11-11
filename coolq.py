@@ -1,4 +1,4 @@
-from aiocqhttp import CQHttp, ApiError, jsonify, request
+from aiocqhttp import CQHttp
 import os
 import random
 from click import command
@@ -6,19 +6,18 @@ from click import command
 from sympy import use
 from Repeater import Repeater
 import logging
-import asyncio
+
 import time
 from util import load_json, purgeMsg
-from datetime import datetime, timezone, timedelta
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.schedulers.blocking import BlockingScheduler
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.cron import CronTrigger
+from datetime import timezone
+
 from queue import Queue
 from pytz import timezone
 from crontab import CronTab
-import wg
+
 import wgmanager
+
+from bot_p import bot
 
 used_timezone=timezone('Asia/Shanghai')
 
