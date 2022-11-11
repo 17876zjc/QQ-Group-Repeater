@@ -6,7 +6,6 @@ import random
 import re
 
 import urllib.parse
-import coolq
 import asyncio
 
 from bot_p import bot
