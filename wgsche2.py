@@ -25,7 +25,8 @@ def getTag() -> str:
         res += getChar(random.randint(0,35))
 
 class WgScheduler():
-    wgClient : list[wglive.TenhouCLient] = [] #List of all wgThreads
+    #wgClient : list[wglive.TenhouCLient] = [] #List of all wgThreads
+    wgClient = []
 
     def HasHashTag(self,group_id,hashTag)->bool: #hashTag: xxxx
         if hashTag not in self.AllHashTags():
