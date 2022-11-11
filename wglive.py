@@ -226,12 +226,12 @@ class TenhouCLient:
             res += "【对局中】\n"
             res += KyokuName[self.kyoku]
             res += " "
-            res += self.honba
+            res += str(self.honba)
             res += "本场\n"
             for i in range(4):
                 res += self.pname[i]
                 res += " "
-                res += self.ten[i]
+                res += str(self.ten[i])
                 res += "\n"
         self.qqSendMsg(group_id,res)
 
