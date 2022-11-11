@@ -111,7 +111,9 @@ class WgScheduler():
                         if WGtag not in self.AllWgGames():
                             self.StartWG(WGtag,str(t_h)+":"+str(t_m),game[3])
                         #Add this group and player
-                        while ((not self.wgClient[self.ClientIndex(WGtag)].is_wg) and (self.wgClient[self.ClientIndex(WGtag)].game_is_continue)):
+                        ind = self.ClientIndex(WGtag)
+                        print("INDEX: "+str(ind))
+                        while ((not self.wgClient[ind].is_wg) and (self.wgClient[ind].game_is_continue)):
                             for gid in k['groupid']:
                                 self.wgClient[self.ClientIndex(WGtag)].addQQ(gid,k['id'])
                 i += 3
