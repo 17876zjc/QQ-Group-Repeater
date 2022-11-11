@@ -173,10 +173,10 @@ def Repeater():
     @bot.onCommand(r'\b查雀魂\b|\b查四麻\b|\bmspt\b|\bmspt4\b')
     async def searchQueHun(self):
         #return "功能正在维护中,明天再来吧~"
-        name = str((self.msg)).strip("#查雀魂")
-        name = name.strip("#mspt4")
-        name = name.strip("#查四麻")
-        name = name.strip("#mspt")[1:]
+        name = str((self.msg)).replace("#查雀魂","")
+        name = name.replace("#mspt4","")
+        name = name.replace("#查四麻","")
+        name = name.replace("#mspt","")[1:]
         if (name == ''):
             return "你叫什么名字?"
         res = majsoul2.searchQueHun2(name,4)
@@ -185,8 +185,8 @@ def Repeater():
     @bot.onCommand(r'\b查三麻\b|\bmspt3\b')
     async def searchQueHunThree(self):
         #return "功能正在维护中,明天再来吧~"
-        name = str((self.msg)).strip("#查三麻")
-        name = name.strip("#mspt3")[1:]
+        name = str((self.msg)).replace("#查三麻","")
+        name = name.replace("#mspt3","")[1:]
         if (name == ''):
             return "你叫什么名字?"
         res = majsoul2.searchQueHun2(name,3)
@@ -194,8 +194,8 @@ def Repeater():
 
     @bot.onCommand(r'\b查天凤\b|\bthpt\b')
     async def searchTenhou(self):
-        name = str((self.msg)).strip("#查天凤")
-        name = name.strip("#thpt")[1:]
+        name = str((self.msg)).replace("#查天凤","")
+        name = name.replace("#thpt","")[1:]
         if (name == ''):
             return "你叫什么名字?"
         #print(name)
@@ -210,13 +210,13 @@ def Repeater():
 
     @bot.onCommand(r'\bwgadd\b')
     async def wgadd(self):
-        id = str((self.msg)).strip("#wgadd")[1:]
+        id = str((self.msg)).replace("#wgadd","")[1:]
         res = wg.wgadd(id,self.fromGroup)
         return res
     
     @bot.onCommand(r'\bwgdel\b')
     async def wgdel(self):
-        id = str((self.msg)).strip("#wgdel")[1:]
+        id = str((self.msg)).replace("#wgdel","")[1:]
         res = wg.wgdel(id,self.fromGroup)
         return res
 
@@ -227,7 +227,7 @@ def Repeater():
 
     @bot.onCommand(r'\bwg\b')
     async def wgp(self):
-        htag = str((self.msg)).strip("#wg")[1:]
+        htag = str((self.msg)).replace("#wg","")[1:]
         if htag[0] != "#":
             return "无效的观战码"
         else:
@@ -235,7 +235,7 @@ def Repeater():
     
     @bot.onCommand(r'\bwg-\b')
     async def wgd(self):
-        htag = str((self.msg)).strip("#wg-")[1:]
+        htag = str((self.msg)).replace("#wg-","")[1:]
         if htag[0] != "#":
             return "无效的观战码"
         else:
@@ -243,7 +243,7 @@ def Repeater():
 
     @bot.onCommand(r'\bwginfo\b')
     async def wginfo(self):
-        htag = str((self.msg)).strip("#wginfo")[1:]
+        htag = str((self.msg)).replace("#wginfo","")[1:]
         if htag[0] != "#":
             return "无效的观战码"
         else:
