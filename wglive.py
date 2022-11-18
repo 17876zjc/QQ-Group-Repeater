@@ -13,6 +13,16 @@ from bot_p import bot
 import nest_asyncio
 nest_asyncio.apply()
 
+portPool = [10080,10081,10082,10083,10084,10085,10086,10087,10088,10089,10090,10091,10092,10093,10094,10095,10096,10097,10098,10099,10100]
+
+def getPort() -> int:
+    res = portPool[0]
+    portPool.pop(0)
+    return res
+
+def restorePort(port:int):
+    portPool.append(port)
+
 msgRank =( 
         [[["轻松拿下一位, 真的太强了","轻松拿下一位, 全程乱杀","太强了轻松获得了一位"],
         ["精通避三, 避免了重大损失","获得一个二位, 深藏功与名"],
@@ -99,6 +109,8 @@ class TenhouCLient:
     wg_thread = None
     is_wg = False
     clientEnds = False
+    myIP = '0.0.0.0'
+    myPort = 0
     #Player Data
     pname = ["","","",""]
     prank = [0,0,0,0]
@@ -238,8 +250,10 @@ class TenhouCLient:
         sleep(random.uniform(min_sleep, max_sleep))
 
     def connect(self):
+        
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.settimeout(1)
+        self.socket.bind((self.myIP,self.myPort))
         self.socket.connect((TENHOU_HOST, TENHOU_PORT))
 
     def _send_message(self, message):
@@ -616,6 +630,7 @@ class TenhouCLient:
         self.hashTag = hashTag
         self.startTime = startTime
         self.gametype = gametype
+        self.myPort = getPort()
         self.connect()
         auth = self.authenticate()
         if auth:
@@ -631,6 +646,7 @@ class TenhouCLient:
             self.end_game()
 
     def __del__(self):
+        restorePort(self.myPort)
         if self.wg_thread:
             self.wg_thread.join()
 
