@@ -248,7 +248,7 @@ def Repeater():
         if htag[0] != "#":
             return "无效的观战码"
         else:
-            res = wg.wginfo(self.fromGroup,htag)
+            res = await wg.wginfo(self.fromGroup,htag)
             if res != "":
                 return res
 

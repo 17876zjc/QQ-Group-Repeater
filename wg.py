@@ -52,7 +52,7 @@ def wgdel(id,group):
                 return("啊这,好像还没有关注["+id+"]呢")
     return("啊这,好像还没有关注["+id+"]呢")
 
-def wginfo(group,hashtag): #hashtag: #xxxx
+async def wginfo(group,hashtag): #hashtag: #xxxx
     if not wgmanager.wgmanager.Scheduler.HasHashTag(group,hashtag[1:]):
         return "没有找到对战"+hashtag
     else:
