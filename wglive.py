@@ -201,16 +201,16 @@ class TenhouCLient:
                 return True
         return False
 
-    def qqSendMsg(self,group_id,msg):
-        async def sendMsg(group_id,msg):
-            await bot.send({'group_id': group_id}, message=msg)
+    async def qqSendMsg(self,group_id,msg):
+        #async def sendMsg(group_id,msg):
+        await bot.send({'group_id': group_id}, message=msg)
         print("READY TO SEND MESSAGE: " +msg)
-        loop =  asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(sendMsg(group_id,msg))
-        loop.close()
+        #loop =  asyncio.new_event_loop()
+        #asyncio.set_event_loop(loop)
+        #loop.run_until_complete(sendMsg(group_id,msg))
+        #loop.close()
 
-    def sendGameStartMsg(self):
+    async def sendGameStartMsg(self):
         res = "正在乱杀, 快来围观:\n#"+self.hashTag+" 【对局开始】 "+self.getGameType()+" "+self.startTime+"\n"
         res = res + wgurl + self.WG+"\n"
         for i in self.pname:
@@ -226,7 +226,7 @@ class TenhouCLient:
                 res = temp+" "+res
                 self.qqSendMsg(i['group'],res)
 
-    def reportGameDetail(self,group_id):
+    async def reportGameDetail(self,group_id):
         res = ""
         res = res +"#"+self.hashTag+" "+self.getGameType()+" "
         if (self.ten == [0,0,0,0]):
@@ -452,7 +452,7 @@ class TenhouCLient:
         return res
                 
 
-    def ReportEndGame(self,message:list):
+    async def ReportEndGame(self,message:list):
         self.game_is_continue = False
         res = "【对局结束】 #"+self.hashTag+"\n"
         for i in range(4):
@@ -470,7 +470,7 @@ class TenhouCLient:
             self.qqSendMsg(i['group'],res)
         
 
-    def ReportAgari(self,message): # <AGARI ... >
+    async def ReportAgari(self,message): # <AGARI ... >
         res = "#"+self.hashTag+"\n"
         # Kyoku, Honba
         res += (KyokuName[self.kyoku] + " " + str(self.honba) + "本场 ")
@@ -543,9 +543,9 @@ class TenhouCLient:
                 self.qqSendMsg(i['group'],res)
         #print(res)
         if(re.findall(r'owari=".*?"',message)!=[]):
-            self.ReportEndGame(re.findall(r'owari=".*?"',message)[0][7:-1].split(","))
+            await self.ReportEndGame(re.findall(r'owari=".*?"',message)[0][7:-1].split(","))
 
-    def ReportRyuukyoku(self,message): #<RYUUKYOKU ...>
+    async def ReportRyuukyoku(self,message): #<RYUUKYOKU ...>
         res = "#"+self.hashTag+"\n"
         # Kyoku, Honba
         res += (KyokuName[self.kyoku] + " " + str(self.honba) + "本场 ")
@@ -587,42 +587,48 @@ class TenhouCLient:
                 self.qqSendMsg(i['group'],res)
         #print(res)
         if(re.findall(r'owari=".*?"',message)!=[]):
-            self.ReportEndGame(re.findall(r'owari=".*?"',message)[0][7:-1].split(","))
+            await self.ReportEndGame(re.findall(r'owari=".*?"',message)[0][7:-1].split(","))
 
     def wg(self):
         print("Start to wg: "+ str(self.WG))
         self._send_message('<CHAT text="%2Fwg%20{}" />'.format(quote(self.WG)))
         self._random_sleep(1, 2)
 
-        while self.game_is_continue and not self.clientEnds:
-            self._random_sleep(1, 2)
-            messages = self._get_multiple_messages()
+        async def mainLoop():
+            while self.game_is_continue and not self.clientEnds:
+                self._random_sleep(1, 2)
+                messages = self._get_multiple_messages()
 
-            if(self.is_wg):
-                self.sendGameStartMsg()
+                if(self.is_wg):
+                    await self.sendGameStartMsg()
 
-            for message in messages:
-                if(self.is_wg == False): #When waiting for wg start
-                    if "<ERR" in message: #围观错误
-                        print("WG Error, quiting...")
-                        self.game_is_continue = False
-                        break
-                    if "<GO" in message:
-                        self.is_wg = True
-                        self._random_sleep(1, 2)
-                        self._send_message("<GOK />")
-                else: #Already in wg
-                    
-                    if "<UN" in message: #Init player data
-                        self.InitplayerData(re.findall(r'<UN .*?>',message)[0])
-                    if "<AGARI" in message: #Agari
-                        self.ReportAgari(re.findall(r'<AGARI .*?>',message)[0])
-                    if "<RYUUKYOKU" in message: #Ryuukyoku
-                        self.ReportRyuukyoku(re.findall(r'<RYUUKYOKU .*?>',message)[0])
-                    if "<INIT" in message: #Update GameProcess
-                        self.UploadGameProcess(re.findall(r'<INIT .*?>',message)[0])
-
-        self.end_game()
+                for message in messages:
+                    if(self.is_wg == False): #When waiting for wg start
+                        if "<ERR" in message: #围观错误
+                            print("WG Error, quiting...")
+                            self.game_is_continue = False
+                            break
+                        if "<GO" in message:
+                            self.is_wg = True
+                            self._random_sleep(1, 2)
+                            self._send_message("<GOK />")
+                    else: #Already in wg
+                        
+                        if "<UN" in message: #Init player data
+                            self.InitplayerData(re.findall(r'<UN .*?>',message)[0])
+                        if "<AGARI" in message: #Agari
+                            await self.ReportAgari(re.findall(r'<AGARI .*?>',message)[0])
+                        if "<RYUUKYOKU" in message: #Ryuukyoku
+                            await self.ReportRyuukyoku(re.findall(r'<RYUUKYOKU .*?>',message)[0])
+                        if "<INIT" in message: #Update GameProcess
+                            self.UploadGameProcess(re.findall(r'<INIT .*?>',message)[0])
+            self.end_game()
+        
+        loop =  asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(mainLoop)
+        loop.close()
+        
 
     def __init__(self,WG,hashTag,startTime,gametype) -> None:
         print("生成新围观: "+str(WG)+" " + str(hashTag) + " " + str(startTime) + " " + str(gametype))

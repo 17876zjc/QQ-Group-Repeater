@@ -56,6 +56,7 @@ def wginfo(group,hashtag): #hashtag: #xxxx
     if not wgmanager.wgmanager.Scheduler.HasHashTag(group,hashtag[1:]):
         return "没有找到对战"+hashtag
     else:
+        #await?
         wgmanager.wgmanager.Scheduler.wgClient[wgmanager.wgmanager.Scheduler.AllHashTags().index(hashtag[1:])].reportGameDetail(group)
     return "" 
 
