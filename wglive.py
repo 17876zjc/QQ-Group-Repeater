@@ -224,7 +224,8 @@ class TenhouCLient:
                     if j != len(i['player'])-1:
                         temp+=","
                 res = temp+" "+res
-                self.qqSendMsg(i['group'],res)
+                print(res)
+                await self.qqSendMsg(i['group'],res)
 
     async def reportGameDetail(self,group_id):
         res = ""
