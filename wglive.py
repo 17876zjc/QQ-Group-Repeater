@@ -245,7 +245,7 @@ class TenhouCLient:
                 res += " "
                 res += str(self.ten[i])
                 res += "\n"
-        self.qqSendMsg(group_id,res)
+        await self.qqSendMsg(group_id,res)
 
     def _random_sleep(self, min_sleep, max_sleep):
         sleep(random.uniform(min_sleep, max_sleep))
@@ -468,7 +468,7 @@ class TenhouCLient:
                 temp += msglist[random.randint(0,len(msglist)-1)]
                 temp += "\n" 
             res = temp + res
-            self.qqSendMsg(i['group'],res)
+            await self.qqSendMsg(i['group'],res)
         
 
     async def ReportAgari(self,message): # <AGARI ... >
@@ -541,7 +541,7 @@ class TenhouCLient:
         
         for i in self.qq:
             if i['isdetail'] == True:
-                self.qqSendMsg(i['group'],res)
+                await self.qqSendMsg(i['group'],res)
         #print(res)
         if(re.findall(r'owari=".*?"',message)!=[]):
             await self.ReportEndGame(re.findall(r'owari=".*?"',message)[0][7:-1].split(","))
@@ -585,7 +585,7 @@ class TenhouCLient:
         
         for i in self.qq:
             if i['isdetail'] == True:
-                self.qqSendMsg(i['group'],res)
+                await self.qqSendMsg(i['group'],res)
         #print(res)
         if(re.findall(r'owari=".*?"',message)!=[]):
             await self.ReportEndGame(re.findall(r'owari=".*?"',message)[0][7:-1].split(","))
