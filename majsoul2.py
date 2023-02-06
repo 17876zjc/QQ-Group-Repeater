@@ -328,7 +328,8 @@ def searchQueHun2(name,mode = 4):
     res += "对局场数: " + str(res1["count"]) + "场\n"
 
     res += "                ------->最新\n"
-    res += "最近战绩: [" + recent_rank[::-1] +"]\n\n" 
+    res += "最近战绩: [" + recent_rank[::-1] +"]\n" 
+    res += "最近对战: "+ str(time.strftime("%Y/%m/%d %H:%M:%S", time.localtime(res_recent[0]['startTime'])))+"\n\n"
 
     res += "平均顺位: " + str(round(res1["avg_rank"],3)) + "\n"
     res += "一位率:   " + str(round(res1["rank_rates"][0]*100,2)) + "%\n"
