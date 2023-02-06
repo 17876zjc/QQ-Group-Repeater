@@ -230,6 +230,7 @@ def getinfo(name):
 
 
     recentrank = ""
+    recentbattle = ""
     recordlen = len(res['list'])
     count = -1
     while(len(recentrank)<10):
@@ -248,6 +249,8 @@ def getinfo(name):
         for j in range(1,5):
             if double(i['player'+str(j)+'ptr']) > pt:
                 rank = rank+1
+        if recentrank == "":
+            recentbattle = str(time.strftime("%Y/%m/%d %H:%M:%S", time.localtime(i['starttime'])))
         recentrank += str(rank)
         
 
@@ -267,7 +270,8 @@ def getinfo(name):
         ans = ans+"\n段位排名: "+str(res1['4']['graderank'])+" 名"
 
     ans = ans + "\n                --------->最新"
-    ans = ans + "\n最近战绩: ["+recentrank[::-1]+"]\n\n"  
+    ans = ans + "\n最近战绩: ["+recentrank[::-1]+"]\n"  
+    ans = ans + "最近对战:" + recentbattle +"\n\n"
 
     ans = ans + "查询范围: "
     if table == None:
