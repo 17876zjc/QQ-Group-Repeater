@@ -250,7 +250,7 @@ def getinfo(name):
             if double(i['player'+str(j)+'ptr']) > pt:
                 rank = rank+1
         if recentrank == "":
-            recentbattle = str(time.strftime("%Y/%m/%d %H:%M:%S", time.localtime(i['starttime'])))
+            recentbattle = str(time.strftime("%Y/%m/%d %H:%M:%S", time.localtime(int(i['starttime']))))
         recentrank += str(rank)
         
 
