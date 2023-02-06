@@ -638,6 +638,7 @@ class TenhouCLient:
         self.startTime = startTime
         self.gametype = gametype
         self.myPort = getPort()
+        print("端口为: ")+str(self.myPort)
         self.connect()
         auth = self.authenticate()
         if auth:
