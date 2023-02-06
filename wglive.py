@@ -346,6 +346,7 @@ class TenhouCLient:
             self.socket.close()
         except OSError:
             pass
+        print("Setting flag to end.")
         self.clientEnds = True
     
     def InitplayerData(self,message):

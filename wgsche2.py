@@ -56,9 +56,12 @@ class WgScheduler():
     def ClearEndedClient(self):
         i = 0
         while i < len(self.wgClient):
+            print("Checking end flag "+str(i))
             if (self.wgClient[i].clientEnds == True):
+                print("Poping "+str(i))
                 self.wgClient.pop(i)
             else:
+                print("Not clearing "+str(i))
                 i+=1
     
     def ForceCloseAllClient(self):
